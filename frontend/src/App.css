@@ -1,34 +1,105 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* NYNE Focus Landing Page Styles */
+
+.hero-gradient {
+  background: linear-gradient(180deg, rgba(4, 9, 20, 0.4) 0%, rgba(4, 9, 20, 0.9) 100%);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.glass-header {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background: rgba(4, 9, 20, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.card-glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.App-link {
-    color: #61dafb;
+.card-glass:hover {
+  box-shadow: 0 0 15px rgba(0, 168, 232, 0.3);
+  transform: translateY(-4px);
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.btn-primary {
+  background-color: #FFEA00;
+  color: #000000;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #FFD600;
+  transform: scale(1.02);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #FFFFFF;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #00A8E8 0%, #FFEA00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-blue {
+  box-shadow: 0 0 30px rgba(0, 168, 232, 0.4);
+}
+
+.glow-yellow {
+  box-shadow: 0 0 30px rgba(255, 234, 0, 0.3);
+}
+
+/* Image hover effects */
+.product-image {
+  transition: transform 0.5s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+/* Ingredient card styles */
+.ingredient-item {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.ingredient-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #00A8E8;
+  border-radius: 50%;
+}
+
+/* Focus bar animation */
+@keyframes fillBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 90%;
+  }
+}
+
+.focus-bar {
+  animation: fillBar 2s ease-out forwards;
 }
