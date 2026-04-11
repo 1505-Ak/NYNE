@@ -1,0 +1,97 @@
+{
+  "theme": "Dark",
+  "archetype": "Archetype 2: The Performance Pro (Elite Athleticism & Precision) infused with Deep Oceanic Depth to match the brand logo (Dolphin & Wave).",
+  "typography": {
+    "heading_font": "Anton",
+    "body_font": "Outfit",
+    "scales": {
+      "h1": "text-5xl sm:text-6xl lg:text-8xl tracking-tighter uppercase leading-[0.85]",
+      "h2": "text-4xl sm:text-5xl lg:text-6xl tracking-tight uppercase",
+      "h3": "text-2xl sm:text-3xl tracking-tight",
+      "body": "text-base sm:text-lg leading-relaxed text-slate-300",
+      "overline": "text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-sky-400"
+    },
+    "guidelines": "Do not use Inter for headings. Anton brings massive brutalist impact. Use Outfit for geometric tech-athletic legibility in body. Overlines must be widely tracked."
+  },
+  "colors": {
+    "background": {
+      "base": "#040914",
+      "surface": "#0A1128"
+    },
+    "brand": {
+      "primary_blue": "#00A8E8",
+      "electric_yellow": "#FFEA00",
+      "deep_ocean": "#003A70",
+      "pure_white": "#FFFFFF"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#94A3B8",
+      "accent": "#FFEA00"
+    },
+    "guidelines": "Rely on deep abyss blue (040914) as the core anchor. Use Electric Yellow sparingly for buttons/CTAs and key highlights. Text must hit 4.5:1 contrast ratio. Do not use generic grey; tint all greys towards blue (slate)."
+  },
+  "spacing_and_layout": {
+    "grid_system": "MODE A: The 'Tetris' Grid for Features & Ingredients.",
+    "spacing_scale": "p-6, p-8, p-12, p-24, p-32. Use generous padding inside sections.",
+    "alignment": "Mobile-First single column stacking to 8 or 12 column grids on desktop. Strong optical alignment with massive negative space.",
+    "hero_section": "Massive typography with z-index layering over the product cans. The hero splash image should be layered underneath with bg-black/40 overlay."
+  },
+  "surface_strategies": {
+    "header": "Crystal Glassmorphism: backdrop-blur-2xl bg-[#040914]/60 border-b border-white/10.",
+    "cards": "Grid Borders: border border-white/10 bg-white/[0.02] backdrop-blur-sm. Hover states bring a subtle glow (shadow-[0_0_15px_rgba(0,168,232,0.3)]) and lift (-translate-y-1).",
+    "buttons": "Solid High Contrast: bg-[#FFEA00] text-black font-bold uppercase tracking-wide hover:bg-[#FFD600] transition-colors. Or secondary: bg-transparent border-2 border-white/20 hover:border-white text-white."
+  },
+  "motion_and_interactions": {
+    "scroll": "Smooth scrolling is mandatory. Parallax effects on the floating product cans in the hero and feature sections.",
+    "marquee": "Use a continuous smooth marquee for 'NO MORE 2PM CRASH' and '9/10 ALL-DAY FOCUS' across sections.",
+    "hover": "All interactive elements MUST have explicit hover text/bg color changes."
+  },
+  "component_usage": {
+    "framework": "Use pure HTML + Tailwind CSS for massive layout structures. Use Lucide-react for sharp icons.",
+    "limitations": "Avoid Shadcn Card wrappers for massive bento grids; use raw HTML/Tailwind div structures for complete layout control and asymmetry."
+  },
+  "media": {
+    "hero_background": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/ef45c674-3601-48b7-9922-7d1e6f395e60/images/e387a2e63fe10f6992cfa781ee1f8eb16baada27a536684a5e43a4f32232d5e4.png",
+      "description": "Abstract deep oceanic blue dark liquid splash macro photography. Perfect for hero overlay."
+    },
+    "texture_background": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/ef45c674-3601-48b7-9922-7d1e6f395e60/images/27918e2a962c4d6d49cc025e671fc351617ca0eee905414e36ab72dd31976d3d.png",
+      "description": "Dark textured obsidian grain background. Perfect for features/ingredients sections."
+    },
+    "product_can_front": {
+      "url": "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/znumwecj_WhatsApp%20Image%202026-04-01%20at%2001.57.02.jpeg",
+      "description": "Main product front shot (Lemon Ginger). Use in hero."
+    },
+    "product_can_angle": {
+      "url": "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/0dbvw3yv_WhatsApp%20Image%202026-04-01%20at%2001.57.03%284%29.jpeg",
+      "description": "Product angled/back shot. Use in features section."
+    },
+    "graphic_2pm_crash": {
+      "url": "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/7uos65ah_WhatsApp%20Image%202026-04-08%20at%2018.06.59.jpeg",
+      "description": "No More 2PM Crash promotional graphic."
+    },
+    "supplement_facts": {
+      "url": "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/1npshgv4_WhatsApp%20Image%202026-04-08%20at%2020.19.22.jpeg",
+      "description": "Nutritional facts panel showing Paraxanthine. Focus point for Ingredients section."
+    },
+    "lifestyle_group_hands": {
+      "url": "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/s3oxo0je_WhatsApp%20Image%202026-04-01%20at%2001.57.03%283%29.jpeg",
+      "description": "Lifestyle shot of team/group cheering with cans. Ideal for community/bottom CTA section."
+    }
+  },
+  "accessibility_and_testing": {
+    "testing_ids": "MUST include data-testid attributes on all interactive elements (e.g., data-testid='buy-now-shopify-btn').",
+    "contrast": "Ensure pure white text has text-shadow if overlaying the liquid splash hero bg. Buttons must meet 4.5:1 ratio."
+  },
+  "instructions_to_main_agent": {
+    "1": "You are building the NYNE Focus landing page. Start by adding the Google Fonts: Anton and Outfit.",
+    "2": "Create a high-impact Hero section using the 'product_can_front' overlaid on the 'hero_background' with a dark tint overlay. The headline should be massive using Anton font.",
+    "3": "Build a Features bento-box section using 'product_can_angle' and 'graphic_2pm_crash'. Emphasize 'Paraxanthine' and 'No 2PM Crash'.",
+    "4": "Build an Ingredients section using the 'texture_background' and the 'supplement_facts' image. Give it a highly clinical but premium tech-athletic vibe.",
+    "5": "Close with a massive CTA section using 'lifestyle_group_hands' directing to Shopify placeholder URL '#'. Add email placeholder in footer.",
+    "6": "Install framer-motion for simple up-pan micro-interactions on scroll, and lucide-react for generic iconography. Do not use Inter.",
+    "7": "Make sure all media images are used exactly as provided. NO placeholders."
+  }
+}
