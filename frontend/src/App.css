@@ -1,93 +1,69 @@
-/* NYNE Focus Landing Page Styles */
+/* NYNE Focus Premium Landing Page */
 
-.hero-gradient {
-  background: linear-gradient(180deg, rgba(4, 9, 20, 0.4) 0%, rgba(4, 9, 20, 0.9) 100%);
+/* Smooth transitions for all interactive elements */
+a, button {
+  cursor: none;
 }
 
-.glass-header {
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  background: rgba(4, 9, 20, 0.6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+@media (max-width: 1024px) {
+  a, button {
+    cursor: pointer;
+  }
 }
 
-.card-glass {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.card-glass:hover {
-  box-shadow: 0 0 15px rgba(0, 168, 232, 0.3);
-  transform: translateY(-4px);
-}
-
-.btn-primary {
-  background-color: #FFEA00;
-  color: #000000;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: #FFD600;
-  transform: scale(1.02);
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
-  transition: all 0.3s ease;
-}
-
-.btn-secondary:hover {
-  border-color: #FFFFFF;
-}
-
-.text-gradient {
-  background: linear-gradient(135deg, #00A8E8 0%, #FFEA00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
+/* Glow effects */
 .glow-blue {
-  box-shadow: 0 0 30px rgba(0, 168, 232, 0.4);
+  box-shadow: 0 0 60px rgba(0, 168, 232, 0.4);
 }
 
 .glow-yellow {
-  box-shadow: 0 0 30px rgba(255, 234, 0, 0.3);
+  box-shadow: 0 0 60px rgba(255, 234, 0, 0.3);
 }
 
-/* Image hover effects */
-.product-image {
-  transition: transform 0.5s ease;
+/* Image effects */
+.product-float {
+  animation: float 4s ease-in-out infinite;
 }
 
-.product-image:hover {
-  transform: scale(1.05) rotate(2deg);
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
 }
 
-/* Ingredient card styles */
-.ingredient-item {
-  position: relative;
-  padding-left: 1.5rem;
+/* Gradient text */
+.text-gradient-premium {
+  background: linear-gradient(135deg, #00A8E8 0%, #FFEA00 50%, #00A8E8 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
 }
 
-.ingredient-item::before {
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Noise texture overlay */
+.noise-overlay::before {
   content: '';
   position: absolute;
+  top: 0;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  background: #00A8E8;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
 }
 
 /* Focus bar animation */
@@ -102,4 +78,33 @@
 
 .focus-bar {
   animation: fillBar 2s ease-out forwards;
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 168, 232, 0.2);
+}
+
+/* Border glow on hover */
+.border-glow:hover {
+  box-shadow: 0 0 20px rgba(0, 168, 232, 0.4), inset 0 0 20px rgba(0, 168, 232, 0.1);
+}
+
+/* Pulse animation for CTAs */
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 234, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px 10px rgba(255, 234, 0, 0.2);
+  }
 }
