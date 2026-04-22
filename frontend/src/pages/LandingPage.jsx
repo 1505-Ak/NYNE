@@ -13,7 +13,32 @@ const IMAGES = {
 
 const SHOPIFY_URL = "#";
 
-// Header Component with Logo Image
+// Stylized Logo Component
+const Logo = ({ light = false }) => (
+  <div className="flex items-center gap-0.5">
+    <svg viewBox="0 0 120 40" className="h-8 lg:h-10 w-auto">
+      <defs>
+        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#4FACFE" />
+          <stop offset="100%" stopColor="#00F2FE" />
+        </linearGradient>
+      </defs>
+      {/* N */}
+      <path d="M5 32V8h4l12 16V8h4v24h-4L9 16v16H5z" fill={light ? "white" : "#003342"} />
+      {/* Y */}
+      <path d="M32 8l6 10 6-10h5l-9 14v10h-4V22l-9-14h5z" fill={light ? "white" : "#003342"} />
+      {/* N */}
+      <path d="M55 32V8h4l12 16V8h4v24h-4L59 16v16h-4z" fill={light ? "white" : "#003342"} />
+      {/* E */}
+      <path d="M82 32V8h16v4H86v6h10v4H86v6h12v4H82z" fill={light ? "white" : "#003342"} />
+      {/* Dolphin accent */}
+      <circle cx="108" cy="12" r="6" fill="url(#logoGradient)" />
+      <path d="M104 14c2-1 4 0 6-2" stroke="url(#logoGradient)" strokeWidth="2" fill="none" strokeLinecap="round"/>
+    </svg>
+  </div>
+);
+
+// Header Component
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -26,19 +51,15 @@ const Header = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' : 'bg-transparent py-4'
       }`}
       data-testid="header"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="/" className="flex items-center" data-testid="logo-link">
-            <img 
-              src={IMAGES.logo} 
-              alt="NYNE Focus" 
-              className="h-10 lg:h-12 w-auto"
-            />
+        <div className="flex items-center justify-between">
+          <a href="/" className="flex items-center group" data-testid="logo-link">
+            <Logo light={!scrolled} />
           </a>
 
           <nav className="hidden lg:flex items-center gap-8">
@@ -56,7 +77,7 @@ const Header = () => {
           </nav>
 
           <button 
-            className={`lg:hidden p-2 ${scrolled ? 'text-[#003342]' : 'text-white'}`}
+            className={`lg:hidden p-2 rounded-full transition-colors ${scrolled ? 'text-[#003342] hover:bg-[#003342]/10' : 'text-white hover:bg-white/10'}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             data-testid="mobile-menu-btn"
           >
@@ -71,13 +92,18 @@ const Header = () => {
         </div>
 
         {mobileMenuOpen && (
-          <nav className="lg:hidden py-4 flex flex-col gap-4 bg-white rounded-2xl shadow-xl mx-2 p-4" data-testid="mobile-menu">
-            <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">The Problem</a>
-            <a href="#product" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">Product</a>
-            <a href="#ingredients" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">Ingredients</a>
-            <a href="#faq" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">FAQ</a>
-            <a href={SHOPIFY_URL} className="bg-[#003342] text-white px-6 py-3 font-bold text-center rounded-full">Shop Now</a>
-          </nav>
+          <motion.nav 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="lg:hidden mt-4 flex flex-col gap-2 bg-white rounded-3xl shadow-2xl p-6 border border-[#4FACFE]/20" 
+            data-testid="mobile-menu"
+          >
+            <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] hover:bg-[#4FACFE]/10 font-semibold py-3 px-4 rounded-xl transition-colors">The Problem</a>
+            <a href="#product" className="text-[#003342]/70 hover:text-[#003342] hover:bg-[#4FACFE]/10 font-semibold py-3 px-4 rounded-xl transition-colors">Product</a>
+            <a href="#ingredients" className="text-[#003342]/70 hover:text-[#003342] hover:bg-[#4FACFE]/10 font-semibold py-3 px-4 rounded-xl transition-colors">Ingredients</a>
+            <a href="#faq" className="text-[#003342]/70 hover:text-[#003342] hover:bg-[#4FACFE]/10 font-semibold py-3 px-4 rounded-xl transition-colors">FAQ</a>
+            <a href={SHOPIFY_URL} className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] text-white px-6 py-4 font-bold text-center rounded-full mt-2 shadow-lg">Shop Now</a>
+          </motion.nav>
         )}
       </div>
     </header>
@@ -702,7 +728,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="flex items-center">
-            <img src={IMAGES.logo} alt="NYNE Focus" className="h-10 w-auto" />
+            <Logo light={true} />
           </div>
 
           <nav className="flex flex-wrap items-center justify-center gap-6 text-sm">
