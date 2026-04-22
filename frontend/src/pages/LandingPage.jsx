@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 // Image URLs
 const IMAGES = {
   logo: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/8y6dbdc8_WhatsApp%20Image%202026-04-13%20at%2020.44.10%282%29.jpeg",
-  heroLifestyle: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/xaup0xxt_WhatsApp%20Image%202026-04-01%20at%2001.17.11%289%29.jpeg",
+  heroLifestyle: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/ykj8544m_Gemini_Generated_Image_b9gqxlb9gqxlb9gq.png",
   handsWithCans: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/aqtm2iy9_WhatsApp%20Image%202026-04-01%20at%2001.57.03%286%29.jpeg",
   supplementFacts: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/1npshgv4_WhatsApp%20Image%202026-04-08%20at%2020.19.22.jpeg",
   productCan: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/0dbvw3yv_WhatsApp%20Image%202026-04-01%20at%2001.57.03%284%29.jpeg",
@@ -13,49 +13,36 @@ const IMAGES = {
 
 const SHOPIFY_URL = "#";
 
-// Logo Component - Using actual logo image with blend
-const Logo = ({ light = false }) => (
-  <div className={`relative transition-all duration-300 ${light ? 'brightness-0 invert' : ''}`}>
-    <img 
-      src={IMAGES.logo} 
-      alt="NYNE Focus" 
-      className="h-9 lg:h-11 w-auto object-contain"
-    />
-  </div>
+// Logo Component - Using actual logo image
+const Logo = () => (
+  <img 
+    src={IMAGES.logo} 
+    alt="NYNE Focus" 
+    className="h-10 lg:h-12 w-auto object-contain"
+  />
 );
 
-// Header Component
-const Header = () => {
+// Top Banner with Logo and Wave
+const TopBanner = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' : 'bg-transparent py-4'
-      }`}
-      data-testid="header"
-    >
+    <div className="relative bg-white" data-testid="top-banner">
+      {/* Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          <a href="/" className="flex items-center group" data-testid="logo-link">
-            <Logo light={!scrolled} />
+        <div className="flex items-center justify-between py-4 lg:py-5">
+          <a href="/" className="flex items-center" data-testid="logo-link">
+            <Logo />
           </a>
 
           <nav className="hidden lg:flex items-center gap-8">
-            <a href="#problem" className={`font-semibold text-sm transition-colors ${scrolled ? 'text-[#003342]/70 hover:text-[#003342]' : 'text-white/90 hover:text-white'}`}>The Problem</a>
-            <a href="#product" className={`font-semibold text-sm transition-colors ${scrolled ? 'text-[#003342]/70 hover:text-[#003342]' : 'text-white/90 hover:text-white'}`}>Product</a>
-            <a href="#ingredients" className={`font-semibold text-sm transition-colors ${scrolled ? 'text-[#003342]/70 hover:text-[#003342]' : 'text-white/90 hover:text-white'}`}>Ingredients</a>
-            <a href="#faq" className={`font-semibold text-sm transition-colors ${scrolled ? 'text-[#003342]/70 hover:text-[#003342]' : 'text-white/90 hover:text-white'}`}>FAQ</a>
+            <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm transition-colors">The Problem</a>
+            <a href="#product" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm transition-colors">Product</a>
+            <a href="#ingredients" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm transition-colors">Ingredients</a>
+            <a href="#faq" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm transition-colors">FAQ</a>
             <a 
               href={SHOPIFY_URL}
-              className="bg-[#FFFE97] text-[#003342] px-6 py-2.5 font-bold text-sm hover:bg-white transition-all rounded-full shadow-lg hover:shadow-xl hover:scale-105"
+              className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] text-white px-6 py-2.5 font-bold text-sm hover:shadow-lg transition-all rounded-full"
               data-testid="header-buy-btn"
             >
               Shop Now
@@ -63,7 +50,7 @@ const Header = () => {
           </nav>
 
           <button 
-            className={`lg:hidden p-2 rounded-full transition-colors ${scrolled ? 'text-[#003342] hover:bg-[#003342]/10' : 'text-white hover:bg-white/10'}`}
+            className="lg:hidden p-2 text-[#003342]"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             data-testid="mobile-menu-btn"
           >
@@ -81,7 +68,7 @@ const Header = () => {
           <motion.nav 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="lg:hidden mt-4 flex flex-col gap-2 bg-white rounded-3xl shadow-2xl p-6 border border-[#4FACFE]/20" 
+            className="lg:hidden pb-4 flex flex-col gap-2" 
             data-testid="mobile-menu"
           >
             <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] hover:bg-[#4FACFE]/10 font-semibold py-3 px-4 rounded-xl transition-colors">The Problem</a>
@@ -92,35 +79,85 @@ const Header = () => {
           </motion.nav>
         )}
       </div>
+
+      {/* Wave bottom of banner */}
+      <div className="absolute bottom-0 left-0 right-0 translate-y-[99%] z-10">
+        <svg viewBox="0 0 1440 60" className="w-full h-10 sm:h-12" preserveAspectRatio="none">
+          <path 
+            fill="white" 
+            d="M0,30L60,25C120,20,240,10,360,10C480,10,600,20,720,25C840,30,960,30,1080,27.5C1200,25,1320,20,1380,17.5L1440,15L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
+          />
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+// Header Component (sticky on scroll)
+const Header = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 100);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  if (!scrolled) return null;
+
+  return (
+    <header 
+      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg py-3 transition-all duration-300"
+      data-testid="header"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          <a href="/" className="flex items-center" data-testid="sticky-logo-link">
+            <Logo />
+          </a>
+
+          <nav className="hidden lg:flex items-center gap-8">
+            <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm transition-colors">The Problem</a>
+            <a href="#product" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm transition-colors">Product</a>
+            <a href="#ingredients" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm transition-colors">Ingredients</a>
+            <a href="#faq" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm transition-colors">FAQ</a>
+            <a 
+              href={SHOPIFY_URL}
+              className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] text-white px-6 py-2.5 font-bold text-sm hover:shadow-lg transition-all rounded-full"
+            >
+              Shop Now
+            </a>
+          </nav>
+        </div>
+      </div>
     </header>
   );
 };
 
-// Section 1: Hero - Full Screen Background
+// Section 1: Hero - Full Screen Background (below banner)
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden" data-testid="hero-section">
+    <section className="relative min-h-[90vh] overflow-hidden" data-testid="hero-section">
       {/* Full Screen Background Image */}
       <div className="absolute inset-0">
         <img 
           src={IMAGES.heroLifestyle}
           alt="NYNE Focus Lifestyle"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-right"
           data-testid="hero-background-image"
         />
-        {/* Vibrant Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#003342]/90 via-[#003342]/60 to-[#4FACFE]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#003342]/70 via-transparent to-transparent" />
+        {/* Lighter gradient to show more of the image */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#003342]/80 via-[#003342]/30 to-transparent" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 h-screen flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      {/* Content - positioned left to not cover the can */}
+      <div className="relative z-10 h-full min-h-[90vh] flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-2xl"
+            className="max-w-xl"
           >
             <motion.span 
               initial={{ opacity: 0, x: -20 }}
@@ -130,11 +167,11 @@ const HeroSection = () => {
             >
               Nootropic Energy Drink
             </motion.span>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.95] mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[0.95] mb-6">
               Take Back<br />
               <span className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] bg-clip-text text-transparent">Your Focus</span>
             </h1>
-            <p className="text-xl sm:text-2xl text-white/80 mb-8 max-w-lg font-medium">
+            <p className="text-lg sm:text-xl text-white/80 mb-8 max-w-md font-medium">
               Your competitors are still on coffee. You don't have to be.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -142,15 +179,15 @@ const HeroSection = () => {
                 href="#product"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-[#FFFE97] text-[#003342] px-10 py-4 font-bold text-lg hover:bg-white transition-colors inline-flex items-center justify-center gap-2 rounded-full shadow-xl"
+                className="bg-[#FFFE97] text-[#003342] px-8 py-4 font-bold text-base hover:bg-white transition-colors inline-flex items-center justify-center gap-2 rounded-full shadow-xl"
                 data-testid="hero-cta-btn"
               >
-                Shop Now <ArrowRight size={20} />
+                Shop Now <ArrowRight size={18} />
               </motion.a>
               <motion.a 
                 href="#problem"
                 whileHover={{ scale: 1.05 }}
-                className="border-2 border-white/50 text-white px-10 py-4 font-semibold text-lg hover:bg-white/10 hover:border-white transition-colors text-center rounded-full"
+                className="border-2 border-white/50 text-white px-8 py-4 font-semibold text-base hover:bg-white/10 hover:border-white transition-colors text-center rounded-full"
                 data-testid="hero-learn-btn"
               >
                 Learn More
@@ -160,12 +197,12 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Wave at bottom */}
+      {/* Subtle wave at bottom - very small */}
       <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" className="w-full h-20 sm:h-28 lg:h-36" preserveAspectRatio="none">
+        <svg viewBox="0 0 1440 40" className="w-full h-6" preserveAspectRatio="none">
           <path 
             fill="#FFFE97" 
-            d="M0,64L48,69.3C96,75,192,85,288,90.7C384,96,480,96,576,85.3C672,75,768,53,864,48C960,43,1056,53,1152,64C1248,75,1344,85,1392,90.7L1440,96L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
+            d="M0,20L60,22C120,24,240,28,360,28C480,28,600,24,720,22C840,20,960,20,1080,22C1200,24,1320,28,1380,30L1440,32L1440,40L1380,40C1320,40,1200,40,1080,40C960,40,840,40,720,40C600,40,480,40,360,40C240,40,120,40,60,40L0,40Z"
           />
         </svg>
       </div>
@@ -738,6 +775,7 @@ const Footer = () => {
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden" data-testid="landing-page">
+      <TopBanner />
       <Header />
       <HeroSection />
       <ProblemSection />
