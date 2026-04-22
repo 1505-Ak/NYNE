@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg-base: #000000;
-  --brand-blue: #00A8E8;
-  --brand-yellow: #FFEA00;
-  --text-primary: #FFFFFF;
+  --nyne-black: #003342;
+  --nyne-white: #FFFFFF;
+  --nyne-ocean: #4FACFE;
+  --nyne-sky: #00F2FE;
+  --nyne-lemon: #FFFE97;
 }
 
 * {
@@ -19,71 +20,76 @@
 
 html {
   scroll-behavior: smooth;
-  cursor: none;
-}
-
-@media (max-width: 1024px) {
-  html {
-    cursor: auto;
-  }
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
-  background-color: var(--bg-base);
-  color: var(--text-primary);
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--nyne-white);
+  color: var(--nyne-black);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
-.font-heading {
-  font-family: 'Anton', sans-serif;
+.font-bold {
+  font-weight: 700;
 }
 
-/* Marquee animation */
-@keyframes marquee {
-  0% {
+.font-semibold {
+  font-weight: 600;
+}
+
+/* Gradient backgrounds */
+.gradient-ocean-sky {
+  background: linear-gradient(135deg, var(--nyne-ocean) 0%, var(--nyne-sky) 100%);
+}
+
+.gradient-lemon-sky {
+  background: linear-gradient(135deg, var(--nyne-lemon) 0%, var(--nyne-sky) 100%);
+}
+
+/* Wave pattern animation */
+@keyframes wave {
+  0%, 100% {
     transform: translateX(0);
   }
-  100% {
-    transform: translateX(-50%);
+  50% {
+    transform: translateX(-5%);
   }
 }
 
-.animate-marquee {
-  animation: marquee 25s linear infinite;
+.animate-wave {
+  animation: wave 8s ease-in-out infinite;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00A8E8;
-  border-radius: 3px;
+  background: var(--nyne-ocean);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FFEA00;
+  background: var(--nyne-black);
 }
 
 /* Selection */
 ::selection {
-  background: #00A8E8;
-  color: #000;
+  background: var(--nyne-ocean);
+  color: white;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --radius: 0px;
+    --background: 0 0% 100%;
+    --foreground: 195 100% 13%;
+    --radius: 0.5rem;
   }
 }
 
@@ -91,4 +97,13 @@ body {
   * {
     @apply border-border;
   }
+}
+
+/* FAQ Accordion styles */
+.faq-item {
+  border-bottom: 1px solid rgba(0, 51, 66, 0.1);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
 }

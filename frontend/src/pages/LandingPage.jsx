@@ -1,95 +1,45 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Menu, X, Zap, Brain, Shield, Clock } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Plus, Minus, ChevronDown, Check, X, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 
 // Image URLs
 const IMAGES = {
   heroLifestyle: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/xaup0xxt_WhatsApp%20Image%202026-04-01%20at%2001.17.11%289%29.jpeg",
   productRender: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/i4uv9jj9_Nyne%20Can%20Render%281%29.png",
-  productCanFront: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/znumwecj_WhatsApp%20Image%202026-04-01%20at%2001.57.02.jpeg",
-  productCanAngle: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/0dbvw3yv_WhatsApp%20Image%202026-04-01%20at%2001.57.03%284%29.jpeg",
-  graphic2pmCrash: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/7uos65ah_WhatsApp%20Image%202026-04-08%20at%2018.06.59.jpeg",
   supplementFacts: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/1npshgv4_WhatsApp%20Image%202026-04-08%20at%2020.19.22.jpeg",
-  lifestyleGroupHands: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/s3oxo0je_WhatsApp%20Image%202026-04-01%20at%2001.57.03%283%29.jpeg"
 };
 
 const SHOPIFY_URL = "#";
 
-// Custom cursor component
-const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-
-  useEffect(() => {
-    const updatePosition = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const handleMouseOver = (e) => {
-      if (e.target.closest('a, button')) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
-    };
-
-    window.addEventListener('mousemove', updatePosition);
-    window.addEventListener('mouseover', handleMouseOver);
-
-    return () => {
-      window.removeEventListener('mousemove', updatePosition);
-      window.removeEventListener('mouseover', handleMouseOver);
-    };
-  }, []);
-
-  return (
-    <motion.div
-      className="fixed top-0 left-0 w-4 h-4 bg-[#FFEA00] rounded-full pointer-events-none z-[9999] mix-blend-difference hidden lg:block"
-      animate={{
-        x: position.x - 8,
-        y: position.y - 8,
-        scale: isHovering ? 2.5 : 1,
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 28 }}
-    />
-  );
+// Brand Colors
+const colors = {
+  black: '#003342',
+  ocean: '#4FACFE',
+  sky: '#00F2FE',
+  lemon: '#FFFE97',
 };
 
-// Header
+// Header Component
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-black/80 backdrop-blur-xl py-3' : 'bg-transparent py-6'
-      }`}
-      data-testid="header"
-    >
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between">
-          <a href="/" className="group" data-testid="logo-link">
-            <span className="font-heading text-3xl lg:text-4xl tracking-tight text-white group-hover:text-[#00A8E8] transition-colors">
-              NYNE
-            </span>
-            <span className="font-heading text-xl lg:text-2xl text-[#00A8E8] ml-2">FOCUS</span>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[#003342]/10" data-testid="header">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          <a href="/" className="flex items-center gap-1" data-testid="logo-link">
+            <span className="text-2xl lg:text-3xl font-bold text-[#003342]">NYNE</span>
+            <span className="text-lg lg:text-xl font-semibold text-[#4FACFE]">FOCUS</span>
           </a>
 
-          <nav className="hidden lg:flex items-center gap-12">
-            <a href="#why" className="text-white/70 hover:text-white transition-colors text-sm tracking-widest uppercase" data-testid="nav-why">Why NYNE</a>
-            <a href="#ingredients" className="text-white/70 hover:text-white transition-colors text-sm tracking-widest uppercase" data-testid="nav-ingredients">Science</a>
+          <nav className="hidden lg:flex items-center gap-8">
+            <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm" data-testid="nav-problem">The Problem</a>
+            <a href="#product" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm" data-testid="nav-product">Product</a>
+            <a href="#ingredients" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm" data-testid="nav-ingredients">Ingredients</a>
+            <a href="#faq" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm" data-testid="nav-faq">FAQ</a>
             <a 
               href={SHOPIFY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#FFEA00] text-black px-8 py-3 text-sm font-bold tracking-wider uppercase hover:bg-white transition-all"
+              className="bg-[#003342] text-white px-6 py-2.5 font-bold text-sm hover:bg-[#4FACFE] transition-colors"
               data-testid="header-buy-btn"
             >
               Shop Now
@@ -97,400 +47,534 @@ const Header = () => {
           </nav>
 
           <button 
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-[#003342] p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             data-testid="mobile-menu-btn"
           >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
         </div>
 
         {mobileMenuOpen && (
-          <motion.nav 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="lg:hidden pt-8 pb-4 flex flex-col gap-6"
-            data-testid="mobile-menu"
-          >
-            <a href="#why" className="text-white/70 hover:text-white transition-colors text-lg tracking-widest uppercase">Why NYNE</a>
-            <a href="#ingredients" className="text-white/70 hover:text-white transition-colors text-lg tracking-widest uppercase">Science</a>
-            <a 
-              href={SHOPIFY_URL}
-              className="bg-[#FFEA00] text-black px-8 py-4 text-sm font-bold tracking-wider uppercase text-center"
-            >
-              Shop Now
-            </a>
-          </motion.nav>
+          <nav className="lg:hidden py-4 flex flex-col gap-4 border-t border-[#003342]/10" data-testid="mobile-menu">
+            <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">The Problem</a>
+            <a href="#product" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">Product</a>
+            <a href="#ingredients" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">Ingredients</a>
+            <a href="#faq" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">FAQ</a>
+            <a href={SHOPIFY_URL} className="bg-[#003342] text-white px-6 py-3 font-bold text-center">Shop Now</a>
+          </nav>
         )}
       </div>
     </header>
   );
 };
 
-// Hero Section - Full Screen Lifestyle Image
+// Section 1: Hero
 const HeroSection = () => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-  
-  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   return (
-    <section 
-      ref={containerRef}
-      className="relative h-screen overflow-hidden"
-      data-testid="hero-section"
-    >
-      {/* Full Screen Background Image */}
-      <motion.div 
-        style={{ y }}
-        className="absolute inset-0"
-      >
-        <img 
-          src={IMAGES.heroLifestyle}
-          alt="NYNE Focus Lifestyle"
-          className="w-full h-full object-cover"
-          data-testid="hero-background-image"
-        />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
-      </motion.div>
-
-      {/* Content */}
-      <motion.div 
-        style={{ opacity }}
-        className="relative z-10 h-full flex flex-col justify-end pb-20 sm:pb-32"
-      >
-        <div className="max-w-[1800px] mx-auto px-6 lg:px-12 w-full">
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden" data-testid="hero-section">
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-[#4FACFE]/5 to-[#00F2FE]/10" />
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-center lg:text-left"
           >
-            <span className="inline-block text-[#00A8E8] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-4 sm:mb-6">
-              Powered by Paraxanthine
+            <span className="inline-block text-[#4FACFE] font-bold text-sm tracking-wider uppercase mb-4">
+              Nootropic Energy Drink
             </span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#003342] leading-tight mb-6">
+              Take Back<br />
+              <span className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] bg-clip-text text-transparent">Your Focus</span>
+            </h1>
+            <p className="text-lg lg:text-xl text-[#003342]/70 mb-8 max-w-lg mx-auto lg:mx-0">
+              Your competitors are still on coffee. You don't have to be.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a 
+                href="#product"
+                className="bg-[#003342] text-white px-8 py-4 font-bold text-base hover:bg-[#4FACFE] transition-colors inline-flex items-center justify-center gap-2"
+                data-testid="hero-cta-btn"
+              >
+                Shop Now <ArrowRight size={18} />
+              </a>
+              <a 
+                href="#problem"
+                className="border-2 border-[#003342]/20 text-[#003342] px-8 py-4 font-semibold text-base hover:border-[#003342] transition-colors"
+                data-testid="hero-learn-btn"
+              >
+                Learn More
+              </a>
+            </div>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="font-heading text-[3rem] sm:text-[5rem] lg:text-[7rem] xl:text-[9rem] leading-[0.9] tracking-tight text-white mb-6 sm:mb-8"
-          >
-            NO MORE<br />
-            <span className="text-[#FFEA00]">2PM</span> CRASH
-          </motion.h1>
-
+          {/* Product Image */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="relative flex justify-center"
           >
-            <a 
-              href={SHOPIFY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-[#FFEA00] text-black px-10 py-5 text-sm font-bold tracking-wider uppercase inline-flex items-center justify-center gap-3 hover:bg-white transition-all"
-              data-testid="hero-buy-btn"
-            >
-              Shop Now 
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a 
-              href="#why"
-              className="border-2 border-white/30 text-white px-10 py-5 text-sm font-bold tracking-wider uppercase inline-flex items-center justify-center hover:border-white hover:bg-white/10 transition-all"
-              data-testid="hero-learn-btn"
-            >
-              Learn More
-            </a>
+            <div className="relative">
+              {/* Decorative circles */}
+              <div className="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-br from-[#4FACFE]/20 to-[#00F2FE]/20 rounded-full blur-3xl" />
+              <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-gradient-to-br from-[#FFFE97]/30 to-[#4FACFE]/20 rounded-full blur-3xl" />
+              <img 
+                src={IMAGES.heroLifestyle}
+                alt="NYNE Focus - Take Back Your Focus"
+                className="relative w-full max-w-lg rounded-2xl shadow-2xl"
+                data-testid="hero-image"
+              />
+            </div>
           </motion.div>
         </div>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
-      >
-        <span className="text-white/50 text-xs tracking-widest uppercase">Scroll</span>
-        <motion.div 
-          className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent"
-          animate={{ scaleY: [1, 0.5, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-      </motion.div>
+      </div>
     </section>
   );
 };
 
-// Marquee Section
-const MarqueeSection = () => {
-  return (
-    <div className="bg-[#FFEA00] py-5 overflow-hidden">
-      <div className="animate-marquee whitespace-nowrap flex">
-        {[...Array(10)].map((_, i) => (
-          <span key={i} className="mx-12 font-heading text-xl sm:text-2xl text-black tracking-wide">
-            NO MORE 2PM CRASH • 9/10 ALL-DAY FOCUS • PARAXANTHINE POWERED • ZERO SUGAR •
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// Why NYNE Section
-const WhySection = () => {
-  const features = [
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: "Clean Energy",
-      desc: "Paraxanthine provides smoother energy than caffeine—no jitters, no crash."
-    },
-    {
-      icon: <Brain className="w-8 h-8" />,
-      title: "Laser Focus",
-      desc: "Citicoline and L-Theanine sharpen your mental clarity for hours."
-    },
-    {
-      icon: <Clock className="w-8 h-8" />,
-      title: "All-Day Power",
-      desc: "Sustained release formula keeps you in the zone from morning to night."
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Science-Backed",
-      desc: "Every ingredient clinically studied and optimally dosed."
-    }
+// Section 2: The Problem
+const ProblemSection = () => {
+  const problems = [
+    { text: "Coffee crashes you at 2pm", icon: "☕" },
+    { text: "Energy drinks spike your anxiety", icon: "⚡" },
+    { text: "Other stimulants work until they don't", icon: "💊" },
+    { text: "None of these were built for what you actually do", icon: "🎯" },
   ];
 
   return (
-    <section id="why" className="py-24 lg:py-40 bg-[#050A14]" data-testid="why-section">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
+    <section id="problem" className="py-20 lg:py-32 bg-[#003342]" data-testid="problem-section">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
-          <span className="text-[#00A8E8] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-4 block">
-            Why Choose NYNE
-          </span>
-          <h2 className="font-heading text-4xl sm:text-5xl lg:text-7xl text-white tracking-tight">
-            THE NEW WAY TO <span className="text-[#FFEA00]">ENERGISE</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            You work long hours. You've built a routine.
           </h2>
+          <p className="text-xl lg:text-2xl text-[#4FACFE] font-semibold">
+            But your fuel is the problem.
+          </p>
         </motion.div>
 
-        {/* Feature Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-          {features.map((feature, i) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {problems.map((problem, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group bg-white/[0.02] border border-white/10 p-8 hover:bg-white/[0.05] hover:border-[#00A8E8]/50 transition-all duration-500"
-              data-testid={`feature-card-${i}`}
+              className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 text-center"
+              data-testid={`problem-card-${i}`}
             >
-              <div className="w-16 h-16 flex items-center justify-center text-[#00A8E8] mb-6 border border-[#00A8E8]/30 group-hover:bg-[#00A8E8]/10 transition-colors">
-                {feature.icon}
-              </div>
-              <h3 className="font-heading text-xl text-white mb-3 tracking-wide uppercase">{feature.title}</h3>
-              <p className="text-white/50 leading-relaxed">{feature.desc}</p>
+              <span className="text-4xl mb-4 block">{problem.icon}</span>
+              <p className="text-white font-semibold">{problem.text}</p>
             </motion.div>
           ))}
         </div>
 
-        {/* Big Image Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden"
+          className="text-center text-white/60 mt-12 text-lg"
         >
-          <div className="grid lg:grid-cols-2 gap-0">
-            <div className="relative h-[400px] lg:h-[600px] overflow-hidden">
-              <img 
-                src={IMAGES.graphic2pmCrash} 
-                alt="No More 2PM Crash"
-                className="w-full h-full object-cover"
-                data-testid="feature-2pm-image"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-8 lg:p-12">
-                <h3 className="font-heading text-3xl lg:text-5xl text-white mb-4">9/10 ALL-DAY FOCUS</h3>
-                <p className="text-white/70 max-w-md">Outperforms traditional energy drinks in sustained attention tests.</p>
-              </div>
-            </div>
-            <div className="bg-[#0A1428] flex items-center justify-center p-12 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#00A8E8]/10 to-transparent" />
-              <div className="text-center relative z-10">
-                <motion.div 
-                  className="w-48 lg:w-64 h-48 lg:h-64 mx-auto mb-8 rounded-2xl overflow-hidden"
-                  animate={{ rotate: [0, 2, -2, 0] }}
-                  transition={{ duration: 6, repeat: Infinity }}
-                >
-                  <img 
-                    src={IMAGES.productCanFront}
-                    alt="NYNE Focus Can"
-                    className="w-full h-full object-cover shadow-[0_0_30px_rgba(0,168,232,0.4)]"
-                    data-testid="feature-product-image"
-                  />
-                </motion.div>
-                <p className="text-white/60 text-lg mb-6">Clean. Focused. Unstoppable.</p>
-                <a 
-                  href={SHOPIFY_URL}
-                  className="inline-flex items-center gap-2 text-[#FFEA00] font-bold tracking-wider uppercase hover:text-white transition-colors"
-                >
-                  Shop Now <ArrowRight size={18} />
-                </a>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+          High-performing professionals need a solution built for sustained cognitive output.
+        </motion.p>
       </div>
     </section>
   );
 };
 
-// Ingredients Section
-const IngredientsSection = () => {
-  const ingredients = [
-    { name: "Paraxanthine", amount: "150mg", tagline: "enfinity®", benefit: "Clean energy without jitters" },
-    { name: "Citicoline", amount: "250mg", tagline: "Cognizin®", benefit: "Enhanced mental clarity" },
-    { name: "N-Acetyl-L-Tyrosine", amount: "500mg", tagline: "", benefit: "Cognitive performance" },
-    { name: "L-Theanine", amount: "200mg", tagline: "", benefit: "Calm focus" },
-    { name: "Phosphatidylserine", amount: "200mg", tagline: "", benefit: "Brain cell support" },
-    { name: "Zynamite®", amount: "150mg", tagline: "Mango Leaf", benefit: "Natural alertness" }
+// Section 3: Product
+const ProductSection = () => {
+  const [quantity, setQuantity] = useState(1);
+  
+  const benefits = [
+    "Calm alertness after 30 minutes",
+    "Reduced mental fatigue",
+    "Accuracy under pressure",
+    "Sustained deep focus",
+    "Clean lemon ginger taste",
   ];
 
   return (
-    <section id="ingredients" className="py-24 lg:py-40 bg-black" data-testid="ingredients-section">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Supplement Facts Image */}
+    <section id="product" className="py-20 lg:py-32 bg-white" data-testid="product-section">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Product Image */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="absolute -inset-4 bg-[#00A8E8]/10 blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#4FACFE]/10 to-[#00F2FE]/10 rounded-3xl" />
             <img 
-              src={IMAGES.supplementFacts} 
-              alt="NYNE Focus Supplement Facts"
-              className="relative w-full rounded-lg"
-              data-testid="supplement-facts-image"
+              src={IMAGES.supplementFacts}
+              alt="NYNE Focus Product"
+              className="relative w-full rounded-2xl"
+              data-testid="product-image"
             />
           </motion.div>
 
-          {/* Ingredients List */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-12"
-            >
-              <span className="text-[#00A8E8] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-4 block">
-                The Science
-              </span>
-              <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight mb-6">
-                PREMIUM <span className="text-[#FFEA00]">INGREDIENTS</span>
-              </h2>
-              <p className="text-white/50 text-lg max-w-lg">
-                Every ingredient is clinically studied and optimally dosed for maximum cognitive performance.
-              </p>
-            </motion.div>
+          {/* Product Details */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-[#4FACFE] font-bold text-sm tracking-wider uppercase">Introducing</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mt-2 mb-2">NYNE FOCUS</h2>
+            <p className="text-[#003342]/60 font-semibold mb-6">Lemon Ginger • 12 Pack</p>
+            
+            <p className="text-2xl font-bold text-[#003342] mb-6">$59.99</p>
 
-            <div className="space-y-4">
-              {ingredients.map((ing, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group flex items-center justify-between p-5 bg-white/[0.02] border border-white/10 hover:border-[#00A8E8]/50 hover:bg-white/[0.05] transition-all"
-                  data-testid={`ingredient-${i}`}
+            {/* Quantity Selector */}
+            <div className="flex items-center gap-4 mb-6">
+              <span className="text-[#003342] font-semibold">Quantity:</span>
+              <div className="flex items-center">
+                <button 
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="quantity-btn"
+                  data-testid="qty-minus"
                 >
-                  <div>
-                    <h4 className="text-white font-semibold flex items-center gap-2">
-                      {ing.name}
-                      {ing.tagline && <span className="text-[#00A8E8] text-xs">({ing.tagline})</span>}
-                    </h4>
-                    <p className="text-white/40 text-sm">{ing.benefit}</p>
-                  </div>
-                  <span className="text-[#FFEA00] font-bold text-lg">{ing.amount}</span>
-                </motion.div>
-              ))}
+                  <Minus size={16} />
+                </button>
+                <span className="w-12 text-center font-bold text-[#003342]" data-testid="qty-value">{quantity}</span>
+                <button 
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="quantity-btn"
+                  data-testid="qty-plus"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
             </div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="mt-8 text-white/40 text-sm"
+            {/* Add to Cart Button */}
+            <a 
+              href={SHOPIFY_URL}
+              className="w-full bg-[#003342] text-white py-4 font-bold text-lg hover:bg-[#4FACFE] transition-colors flex items-center justify-center gap-2 mb-8"
+              data-testid="add-to-cart-btn"
             >
-              Only 20 calories • Zero sugar • Lemon Ginger flavor
-            </motion.p>
-          </div>
+              Add to Cart
+            </a>
+
+            {/* Benefits */}
+            <div>
+              <h4 className="font-bold text-[#003342] mb-4">What you'll feel:</h4>
+              <ul className="space-y-3">
+                {benefits.map((benefit, i) => (
+                  <li key={i} className="flex items-center gap-3 text-[#003342]/80">
+                    <Check size={18} className="text-[#4FACFE] flex-shrink-0" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
-// CTA Section
-const CTASection = () => {
+// Section 4: Ingredients
+const IngredientsSection = () => {
+  const ingredients = [
+    { name: "Zynamite® S", amount: "150mg", benefit: "Cognitive speed and reaction time" },
+    { name: "Enfinity® Paraxanthine", amount: "150mg", benefit: "Caffeine alternative without the negative effects" },
+    { name: "CognatiQ®", amount: "100mg", benefit: "BDNF support for brain health" },
+    { name: "Cognizin®", amount: "250mg", benefit: "Focus and mental energy" },
+    { name: "Real Lion's Mane 8:1", amount: "50mg", benefit: "Long-term neurological health" },
+    { name: "N-Acetyl-L-Tyrosine", amount: "500mg", benefit: "Dopamine precursor for sustained motivation" },
+    { name: "L-Theanine", amount: "200mg", benefit: "Smooth focus without the edge" },
+    { name: "Phosphatidylserine", amount: "200mg", benefit: "Cognitive function, memory, and cortisol reduction" },
+    { name: "B12 (Methylcobalamin)", amount: "2.4mcg", benefit: "Energy and signal transmission speed" },
+    { name: "B6 (Pyridoxine)", amount: "1.7mg", benefit: "Neurotransmitter synthesis and mood" },
+  ];
+
   return (
-    <section className="relative py-32 lg:py-48 overflow-hidden" data-testid="cta-section">
-      {/* Background */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `url(${IMAGES.lifestyleGroupHands})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-      />
-      <div className="absolute inset-0 bg-black/70" />
-      
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+    <section id="ingredients" className="py-20 lg:py-32 bg-gradient-to-b from-[#4FACFE]/5 to-white" data-testid="ingredients-section">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <span className="text-[#4FACFE] font-bold text-sm tracking-wider uppercase mb-4 block">The Science</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-4">
+            Exactly What's In The Can
+          </h2>
+          <p className="text-lg text-[#003342]/60 max-w-2xl mx-auto">
+            Every ingredient is clinically studied and purposefully dosed for optimal cognitive performance.
+          </p>
+        </motion.div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {ingredients.map((ing, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="ingredient-card bg-white p-6 border border-[#003342]/10 hover:border-[#4FACFE]/50 transition-all"
+              data-testid={`ingredient-${i}`}
+            >
+              <div className="flex items-start justify-between mb-2">
+                <h4 className="font-bold text-[#003342]">{ing.name}</h4>
+                <span className="text-[#4FACFE] font-bold text-sm bg-[#4FACFE]/10 px-2 py-1">{ing.amount}</span>
+              </div>
+              <p className="text-sm text-[#003342]/60">{ing.benefit}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Section 5: Comparison
+const ComparisonSection = () => {
+  const comparisons = [
+    { feature: "Sugar", nyne: "0g", coffee: "0g", energy: "27g", preworkout: "3g" },
+    { feature: "Nootropics", nyne: "8 clinically studied", coffee: "0", energy: "0", preworkout: "1-2" },
+    { feature: "No Crash", nyneGood: true, coffee: false, energy: false, preworkout: false },
+    { feature: "No Jitters", nyneGood: true, coffee: false, energy: false, preworkout: false },
+    { feature: "Clean Label", nyneGood: true, coffee: true, energy: false, preworkout: false },
+    { feature: "Sustained Focus", nyneGood: true, coffee: false, energy: false, preworkout: false },
+  ];
+
+  const renderValue = (value, isNyne = false) => {
+    if (typeof value === 'boolean') {
+      return value ? (
+        <Check size={20} className="text-green-500 mx-auto" />
+      ) : (
+        <X size={20} className="text-red-400 mx-auto" />
+      );
+    }
+    return <span className={`font-semibold ${isNyne ? 'text-[#4FACFE]' : ''}`}>{value}</span>;
+  };
+
+  return (
+    <section className="py-20 lg:py-32 bg-[#003342]" data-testid="comparison-section">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+            NYNE vs The Rest
+          </h2>
+          <p className="text-lg text-white/60">
+            See how NYNE FOCUS compares to what you're currently using.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="overflow-x-auto"
+        >
+          <table className="w-full min-w-[600px] comparison-table" data-testid="comparison-table">
+            <thead>
+              <tr className="border-b border-white/20">
+                <th className="text-left text-white/60 font-semibold py-4 px-4"></th>
+                <th className="text-center text-[#4FACFE] font-bold py-4 px-4 bg-white/5">NYNE FOCUS</th>
+                <th className="text-center text-white/60 font-semibold py-4 px-4">Coffee</th>
+                <th className="text-center text-white/60 font-semibold py-4 px-4">Energy Drinks</th>
+                <th className="text-center text-white/60 font-semibold py-4 px-4">Pre-Workout</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisons.map((row, i) => (
+                <tr key={i} className="border-b border-white/10">
+                  <td className="text-white font-semibold py-4 px-4">{row.feature}</td>
+                  <td className="text-center text-white py-4 px-4 bg-white/5">
+                    {row.nyneGood !== undefined ? renderValue(row.nyneGood, true) : renderValue(row.nyne, true)}
+                  </td>
+                  <td className="text-center text-white/60 py-4 px-4">{renderValue(row.coffee)}</td>
+                  <td className="text-center text-white/60 py-4 px-4">{renderValue(row.energy)}</td>
+                  <td className="text-center text-white/60 py-4 px-4">{renderValue(row.preworkout)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+};
+
+// Section 6: FAQ
+const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const faqs = [
+    {
+      question: "How is NYNE FOCUS different than energy drinks or coffee?",
+      answer: "NYNE FOCUS uses paraxanthine instead of caffeine, providing clean energy without the crash or jitters. We combine 8 clinically studied nootropics that have been found to improve alertness, focus, and memory. It's designed for sustained cognitive output—not a quick spike and crash."
+    },
+    {
+      question: "When should I drink NYNE FOCUS?",
+      answer: "Before any block of focus work. Most users drink it 20-30 minutes before a deep work session, before meetings, or even after training sessions when they need to transition into mental performance."
+    },
+    {
+      question: "Will it keep me up at night?",
+      answer: "NYNE FOCUS contains paraxanthine, not caffeine. Paraxanthine has a shorter half-life and does not disrupt sleep architecture the way caffeine does. That said, we recommend consuming it at least 4-5 hours before your intended bedtime."
+    },
+    {
+      question: "Is NYNE FOCUS safe to drink every day?",
+      answer: "Yes! With a fully transparent label, no artificial sweeteners, high-quality nootropic ingredients, and no adulterated compounds, NYNE FOCUS can be taken every day as part of your performance routine."
+    },
+  ];
+
+  return (
+    <section id="faq" className="py-20 lg:py-32 bg-white" data-testid="faq-section">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-4">
+            Frequently Asked Questions
+          </h2>
+        </motion.div>
+
+        <div className="space-y-0">
+          {faqs.map((faq, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="faq-item"
+              data-testid={`faq-${i}`}
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                className="w-full py-6 flex items-center justify-between text-left"
+                data-testid={`faq-toggle-${i}`}
+              >
+                <span className="font-bold text-[#003342] pr-4">{faq.question}</span>
+                <ChevronDown 
+                  size={20} 
+                  className={`text-[#4FACFE] flex-shrink-0 transition-transform ${openIndex === i ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {openIndex === i && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  className="pb-6"
+                >
+                  <p className="text-[#003342]/70 leading-relaxed">{faq.answer}</p>
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Section 7: CTA
+const CTASection = () => {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Placeholder for Klaviyo integration
+    setSubmitted(true);
+  };
+
+  return (
+    <section className="py-20 lg:py-32 bg-gradient-to-br from-[#4FACFE] to-[#00F2FE]" data-testid="cta-section">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-[#00A8E8] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-6 block">
-            Join The Movement
-          </span>
-          <h2 className="font-heading text-4xl sm:text-5xl lg:text-7xl text-white tracking-tight mb-8">
-            READY TO <span className="text-[#FFEA00]">FOCUS</span>?
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-6">
+            You Know What To Do
           </h2>
-          <p className="text-white/60 text-lg lg:text-xl max-w-2xl mx-auto mb-12">
-            Experience clean, sustained energy that keeps you productive all day. 
-            No jitters. No crash. Just pure performance.
+          <p className="text-lg text-[#003342]/80 mb-10 max-w-xl mx-auto">
+            Join thousands of high-performing professionals who've upgraded their fuel.
           </p>
-          
-          <a 
-            href={SHOPIFY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group bg-[#FFEA00] text-black px-14 py-6 text-base font-bold tracking-wider uppercase inline-flex items-center gap-4 hover:bg-white transition-all"
-            data-testid="cta-buy-btn"
-          >
-            Shop NYNE Focus
-            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-          </a>
+
+          {!submitted ? (
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                  className="email-input flex-1 px-5 py-4 text-[#003342] placeholder-[#003342]/40 font-medium"
+                  data-testid="email-input"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#003342] text-white px-8 py-4 font-bold hover:bg-[#003342]/90 transition-colors whitespace-nowrap"
+                  data-testid="cta-submit-btn"
+                >
+                  Get 15% Off
+                </button>
+              </div>
+              <p className="text-sm text-[#003342]/60 mt-4">
+                Sign up to receive 15% off your first order.
+              </p>
+            </form>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-white/20 backdrop-blur-sm p-8 max-w-md mx-auto"
+              data-testid="cta-success"
+            >
+              <Check size={48} className="text-[#003342] mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-[#003342] mb-2">You're In!</h3>
+              <p className="text-[#003342]/80">Check your email for your 15% discount code.</p>
+            </motion.div>
+          )}
+
+          <div className="mt-12">
+            <a 
+              href={SHOPIFY_URL}
+              className="inline-flex items-center gap-2 bg-[#003342] text-white px-10 py-5 font-bold text-lg hover:bg-[#003342]/90 transition-colors"
+              data-testid="cta-shop-btn"
+            >
+              Shop NYNE FOCUS <ArrowRight size={20} />
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -500,22 +584,23 @@ const CTASection = () => {
 // Footer
 const Footer = () => {
   return (
-    <footer className="bg-black border-t border-white/10 py-16" data-testid="footer">
-      <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-2">
-            <span className="font-heading text-3xl tracking-tight text-white">NYNE</span>
-            <span className="font-heading text-xl text-[#00A8E8]">FOCUS</span>
+    <footer className="bg-[#003342] py-12" data-testid="footer">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-1">
+            <span className="text-2xl font-bold text-white">NYNE</span>
+            <span className="text-xl font-semibold text-[#4FACFE]">FOCUS</span>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-8 text-sm">
-            <a href="#why" className="text-white/50 hover:text-white transition-colors tracking-widest uppercase" data-testid="footer-why">Why NYNE</a>
-            <a href="#ingredients" className="text-white/50 hover:text-white transition-colors tracking-widest uppercase" data-testid="footer-ingredients">Science</a>
-            <a href={SHOPIFY_URL} className="text-white/50 hover:text-white transition-colors tracking-widest uppercase" data-testid="footer-shop">Shop</a>
-            <a href="mailto:contact@nynefocus.com" className="text-white/50 hover:text-white transition-colors tracking-widest uppercase" data-testid="footer-contact">Contact</a>
+          <nav className="flex flex-wrap items-center justify-center gap-6 text-sm">
+            <a href="#problem" className="text-white/60 hover:text-white font-semibold">The Problem</a>
+            <a href="#product" className="text-white/60 hover:text-white font-semibold">Product</a>
+            <a href="#ingredients" className="text-white/60 hover:text-white font-semibold">Ingredients</a>
+            <a href="#faq" className="text-white/60 hover:text-white font-semibold">FAQ</a>
+            <a href="mailto:hello@nynefocus.com" className="text-white/60 hover:text-white font-semibold">Contact</a>
           </nav>
 
-          <p className="text-white/30 text-sm">
+          <p className="text-white/40 text-sm">
             © 2026 NYNE Focus. All rights reserved.
           </p>
         </div>
@@ -527,13 +612,14 @@ const Footer = () => {
 // Main Landing Page
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-black" data-testid="landing-page">
-      <CustomCursor />
+    <div className="min-h-screen bg-white" data-testid="landing-page">
       <Header />
       <HeroSection />
-      <MarqueeSection />
-      <WhySection />
+      <ProblemSection />
+      <ProductSection />
       <IngredientsSection />
+      <ComparisonSection />
+      <FAQSection />
       <CTASection />
       <Footer />
     </div>
