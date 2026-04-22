@@ -13,28 +13,14 @@ const IMAGES = {
 
 const SHOPIFY_URL = "#";
 
-// Stylized Logo Component
+// Logo Component - Using actual logo image with blend
 const Logo = ({ light = false }) => (
-  <div className="flex items-center gap-0.5">
-    <svg viewBox="0 0 120 40" className="h-8 lg:h-10 w-auto">
-      <defs>
-        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#4FACFE" />
-          <stop offset="100%" stopColor="#00F2FE" />
-        </linearGradient>
-      </defs>
-      {/* N */}
-      <path d="M5 32V8h4l12 16V8h4v24h-4L9 16v16H5z" fill={light ? "white" : "#003342"} />
-      {/* Y */}
-      <path d="M32 8l6 10 6-10h5l-9 14v10h-4V22l-9-14h5z" fill={light ? "white" : "#003342"} />
-      {/* N */}
-      <path d="M55 32V8h4l12 16V8h4v24h-4L59 16v16h-4z" fill={light ? "white" : "#003342"} />
-      {/* E */}
-      <path d="M82 32V8h16v4H86v6h10v4H86v6h12v4H82z" fill={light ? "white" : "#003342"} />
-      {/* Dolphin accent */}
-      <circle cx="108" cy="12" r="6" fill="url(#logoGradient)" />
-      <path d="M104 14c2-1 4 0 6-2" stroke="url(#logoGradient)" strokeWidth="2" fill="none" strokeLinecap="round"/>
-    </svg>
+  <div className={`relative transition-all duration-300 ${light ? 'brightness-0 invert' : ''}`}>
+    <img 
+      src={IMAGES.logo} 
+      alt="NYNE Focus" 
+      className="h-9 lg:h-11 w-auto object-contain"
+    />
   </div>
 );
 
@@ -657,7 +643,7 @@ const CTASection = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-            You Know What To Do
+            Ready to <span className="text-[#FFFE97]">Focus</span>?
           </h2>
           <p className="text-xl text-white/70 mb-10 max-w-xl mx-auto">
             Join thousands of high-performing professionals who've upgraded their fuel.
@@ -712,7 +698,7 @@ const CTASection = () => {
               className="inline-flex items-center gap-2 bg-[#FFFE97] text-[#003342] px-12 py-5 font-bold text-lg hover:bg-white transition-colors rounded-full shadow-xl"
               data-testid="cta-shop-btn"
             >
-              Shop NYNE FOCUS <ArrowRight size={20} />
+              Try NYNE FOCUS - 15% Off <ArrowRight size={20} />
             </motion.a>
           </div>
         </motion.div>
