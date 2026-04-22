@@ -197,12 +197,12 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Subtle wave at bottom - very small */}
+      {/* Yellow wave at bottom - visible but not cutting the can */}
       <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 40" className="w-full h-6" preserveAspectRatio="none">
+        <svg viewBox="0 0 1440 80" className="w-full h-14 sm:h-16 lg:h-20" preserveAspectRatio="none">
           <path 
             fill="#FFFE97" 
-            d="M0,20L60,22C120,24,240,28,360,28C480,28,600,24,720,22C840,20,960,20,1080,22C1200,24,1320,28,1380,30L1440,32L1440,40L1380,40C1320,40,1200,40,1080,40C960,40,840,40,720,40C600,40,480,40,360,40C240,40,120,40,60,40L0,40Z"
+            d="M0,40L48,42C96,44,192,48,288,52C384,56,480,60,576,56C672,52,768,40,864,36C960,32,1056,36,1152,42C1248,48,1344,56,1392,60L1440,64L1440,80L1392,80C1344,80,1248,80,1152,80C1056,80,960,80,864,80C768,80,672,80,576,80C480,80,384,80,288,80C192,80,96,80,48,80L0,80Z"
           />
         </svg>
       </div>
