@@ -1,45 +1,54 @@
 import { motion } from 'framer-motion';
 import { Plus, Minus, ChevronDown, Check, X, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Image URLs
 const IMAGES = {
+  logo: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/8y6dbdc8_WhatsApp%20Image%202026-04-13%20at%2020.44.10%282%29.jpeg",
   heroLifestyle: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/xaup0xxt_WhatsApp%20Image%202026-04-01%20at%2001.17.11%289%29.jpeg",
-  productRender: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/i4uv9jj9_Nyne%20Can%20Render%281%29.png",
+  handsWithCans: "https://customer-assets.emergentagent.com/job_energy-drink-shop-1/artifacts/aqtm2iy9_WhatsApp%20Image%202026-04-01%20at%2001.57.03%286%29.jpeg",
   supplementFacts: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/1npshgv4_WhatsApp%20Image%202026-04-08%20at%2020.19.22.jpeg",
+  productCan: "https://customer-assets.emergentagent.com/job_ef45c674-3601-48b7-9922-7d1e6f395e60/artifacts/0dbvw3yv_WhatsApp%20Image%202026-04-01%20at%2001.57.03%284%29.jpeg",
 };
 
 const SHOPIFY_URL = "#";
 
-// Brand Colors
-const colors = {
-  black: '#003342',
-  ocean: '#4FACFE',
-  sky: '#00F2FE',
-  lemon: '#FFFE97',
-};
-
-// Header Component
+// Header Component with Logo Image
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[#003342]/10" data-testid="header">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}
+      data-testid="header"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="/" className="flex items-center gap-1" data-testid="logo-link">
-            <span className="text-2xl lg:text-3xl font-bold text-[#003342]">NYNE</span>
-            <span className="text-lg lg:text-xl font-semibold text-[#4FACFE]">FOCUS</span>
+          <a href="/" className="flex items-center" data-testid="logo-link">
+            <img 
+              src={IMAGES.logo} 
+              alt="NYNE Focus" 
+              className="h-10 lg:h-12 w-auto"
+            />
           </a>
 
           <nav className="hidden lg:flex items-center gap-8">
-            <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm" data-testid="nav-problem">The Problem</a>
-            <a href="#product" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm" data-testid="nav-product">Product</a>
-            <a href="#ingredients" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm" data-testid="nav-ingredients">Ingredients</a>
-            <a href="#faq" className="text-[#003342]/70 hover:text-[#003342] font-semibold text-sm" data-testid="nav-faq">FAQ</a>
+            <a href="#problem" className={`font-semibold text-sm transition-colors ${scrolled ? 'text-[#003342]/70 hover:text-[#003342]' : 'text-white/90 hover:text-white'}`}>The Problem</a>
+            <a href="#product" className={`font-semibold text-sm transition-colors ${scrolled ? 'text-[#003342]/70 hover:text-[#003342]' : 'text-white/90 hover:text-white'}`}>Product</a>
+            <a href="#ingredients" className={`font-semibold text-sm transition-colors ${scrolled ? 'text-[#003342]/70 hover:text-[#003342]' : 'text-white/90 hover:text-white'}`}>Ingredients</a>
+            <a href="#faq" className={`font-semibold text-sm transition-colors ${scrolled ? 'text-[#003342]/70 hover:text-[#003342]' : 'text-white/90 hover:text-white'}`}>FAQ</a>
             <a 
               href={SHOPIFY_URL}
-              className="bg-[#003342] text-white px-6 py-2.5 font-bold text-sm hover:bg-[#4FACFE] transition-colors"
+              className="bg-[#FFFE97] text-[#003342] px-6 py-2.5 font-bold text-sm hover:bg-white transition-all rounded-full shadow-lg hover:shadow-xl hover:scale-105"
               data-testid="header-buy-btn"
             >
               Shop Now
@@ -47,7 +56,7 @@ const Header = () => {
           </nav>
 
           <button 
-            className="lg:hidden text-[#003342] p-2"
+            className={`lg:hidden p-2 ${scrolled ? 'text-[#003342]' : 'text-white'}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             data-testid="mobile-menu-btn"
           >
@@ -62,12 +71,12 @@ const Header = () => {
         </div>
 
         {mobileMenuOpen && (
-          <nav className="lg:hidden py-4 flex flex-col gap-4 border-t border-[#003342]/10" data-testid="mobile-menu">
+          <nav className="lg:hidden py-4 flex flex-col gap-4 bg-white rounded-2xl shadow-xl mx-2 p-4" data-testid="mobile-menu">
             <a href="#problem" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">The Problem</a>
             <a href="#product" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">Product</a>
             <a href="#ingredients" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">Ingredients</a>
             <a href="#faq" className="text-[#003342]/70 hover:text-[#003342] font-semibold py-2">FAQ</a>
-            <a href={SHOPIFY_URL} className="bg-[#003342] text-white px-6 py-3 font-bold text-center">Shop Now</a>
+            <a href={SHOPIFY_URL} className="bg-[#003342] text-white px-6 py-3 font-bold text-center rounded-full">Shop Now</a>
           </nav>
         )}
       </div>
@@ -75,70 +84,78 @@ const Header = () => {
   );
 };
 
-// Section 1: Hero
+// Section 1: Hero - Full Screen Background
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden" data-testid="hero-section">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-[#4FACFE]/5 to-[#00F2FE]/10" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Text Content */}
+    <section className="relative min-h-screen overflow-hidden" data-testid="hero-section">
+      {/* Full Screen Background Image */}
+      <div className="absolute inset-0">
+        <img 
+          src={IMAGES.heroLifestyle}
+          alt="NYNE Focus Lifestyle"
+          className="w-full h-full object-cover"
+          data-testid="hero-background-image"
+        />
+        {/* Vibrant Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#003342]/90 via-[#003342]/60 to-[#4FACFE]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#003342]/70 via-transparent to-transparent" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 h-screen flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-center lg:text-left"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-2xl"
           >
-            <span className="inline-block text-[#4FACFE] font-bold text-sm tracking-wider uppercase mb-4">
+            <motion.span 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="inline-block bg-[#FFFE97] text-[#003342] font-bold text-xs sm:text-sm tracking-wider uppercase px-4 py-2 rounded-full mb-6"
+            >
               Nootropic Energy Drink
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#003342] leading-tight mb-6">
+            </motion.span>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[0.95] mb-6">
               Take Back<br />
               <span className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] bg-clip-text text-transparent">Your Focus</span>
             </h1>
-            <p className="text-lg lg:text-xl text-[#003342]/70 mb-8 max-w-lg mx-auto lg:mx-0">
+            <p className="text-xl sm:text-2xl text-white/80 mb-8 max-w-lg font-medium">
               Your competitors are still on coffee. You don't have to be.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a 
+            <div className="flex flex-col sm:flex-row gap-4">
+              <motion.a 
                 href="#product"
-                className="bg-[#003342] text-white px-8 py-4 font-bold text-base hover:bg-[#4FACFE] transition-colors inline-flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-[#FFFE97] text-[#003342] px-10 py-4 font-bold text-lg hover:bg-white transition-colors inline-flex items-center justify-center gap-2 rounded-full shadow-xl"
                 data-testid="hero-cta-btn"
               >
-                Shop Now <ArrowRight size={18} />
-              </a>
-              <a 
+                Shop Now <ArrowRight size={20} />
+              </motion.a>
+              <motion.a 
                 href="#problem"
-                className="border-2 border-[#003342]/20 text-[#003342] px-8 py-4 font-semibold text-base hover:border-[#003342] transition-colors"
+                whileHover={{ scale: 1.05 }}
+                className="border-2 border-white/50 text-white px-10 py-4 font-semibold text-lg hover:bg-white/10 hover:border-white transition-colors text-center rounded-full"
                 data-testid="hero-learn-btn"
               >
                 Learn More
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Product Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative flex justify-center"
-          >
-            <div className="relative">
-              {/* Decorative circles */}
-              <div className="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-br from-[#4FACFE]/20 to-[#00F2FE]/20 rounded-full blur-3xl" />
-              <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-gradient-to-br from-[#FFFE97]/30 to-[#4FACFE]/20 rounded-full blur-3xl" />
-              <img 
-                src={IMAGES.heroLifestyle}
-                alt="NYNE Focus - Take Back Your Focus"
-                className="relative w-full max-w-lg rounded-2xl shadow-2xl"
-                data-testid="hero-image"
-              />
+              </motion.a>
             </div>
           </motion.div>
         </div>
+      </div>
+
+      {/* Wave at bottom */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 120" className="w-full h-20 sm:h-28 lg:h-36" preserveAspectRatio="none">
+          <path 
+            fill="#FFFE97" 
+            d="M0,64L48,69.3C96,75,192,85,288,90.7C384,96,480,96,576,85.3C672,75,768,53,864,48C960,43,1056,53,1152,64C1248,75,1344,85,1392,90.7L1440,96L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
+          />
+        </svg>
       </div>
     </section>
   );
@@ -147,25 +164,29 @@ const HeroSection = () => {
 // Section 2: The Problem
 const ProblemSection = () => {
   const problems = [
-    { text: "Coffee crashes you at 2pm", icon: "☕" },
-    { text: "Energy drinks spike your anxiety", icon: "⚡" },
-    { text: "Other stimulants work until they don't", icon: "💊" },
-    { text: "None of these were built for what you actually do", icon: "🎯" },
+    { text: "Coffee crashes you at 2pm", icon: "☕", color: "from-[#4FACFE]/20 to-[#00F2FE]/20" },
+    { text: "Energy drinks spike your anxiety", icon: "⚡", color: "from-[#00F2FE]/20 to-[#4FACFE]/20" },
+    { text: "Other stimulants work until they don't", icon: "💊", color: "from-[#4FACFE]/20 to-[#00F2FE]/20" },
+    { text: "None of these were built for what you actually do", icon: "🎯", color: "from-[#00F2FE]/20 to-[#4FACFE]/20" },
   ];
 
   return (
-    <section id="problem" className="py-20 lg:py-32 bg-[#003342]" data-testid="problem-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="problem" className="relative bg-[#FFFE97] py-20 lg:py-28 overflow-hidden" data-testid="problem-section">
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#4FACFE]/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#00F2FE]/10 rounded-full blur-3xl" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-4">
             You work long hours. You've built a routine.
           </h2>
-          <p className="text-xl lg:text-2xl text-[#4FACFE] font-semibold">
+          <p className="text-xl lg:text-2xl text-[#003342]/80 font-semibold">
             But your fuel is the problem.
           </p>
         </motion.div>
@@ -174,33 +195,35 @@ const ProblemSection = () => {
           {problems.map((problem, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 text-center"
+              whileHover={{ y: -8, scale: 1.02 }}
+              className={`bg-gradient-to-br ${problem.color} backdrop-blur-sm p-6 text-center rounded-3xl border-2 border-white/50 shadow-xl hover:shadow-2xl transition-all`}
               data-testid={`problem-card-${i}`}
             >
-              <span className="text-4xl mb-4 block">{problem.icon}</span>
-              <p className="text-white font-semibold">{problem.text}</p>
+              <span className="text-5xl mb-4 block">{problem.icon}</span>
+              <p className="text-[#003342] font-bold text-lg">{problem.text}</p>
             </motion.div>
           ))}
         </div>
+      </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center text-white/60 mt-12 text-lg"
-        >
-          High-performing professionals need a solution built for sustained cognitive output.
-        </motion.p>
+      {/* Wave transition */}
+      <div className="absolute bottom-0 left-0 right-0 translate-y-[1px]">
+        <svg viewBox="0 0 1440 120" className="w-full h-20 sm:h-28" preserveAspectRatio="none">
+          <path 
+            fill="#003342" 
+            d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+          />
+        </svg>
       </div>
     </section>
   );
 };
 
-// Section 3: Product
+// Section 3: Product with Hands Image
 const ProductSection = () => {
   const [quantity, setQuantity] = useState(1);
   
@@ -213,8 +236,34 @@ const ProductSection = () => {
   ];
 
   return (
-    <section id="product" className="py-20 lg:py-32 bg-white" data-testid="product-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="product" className="relative py-20 lg:py-28 bg-[#003342] overflow-hidden" data-testid="product-section">
+      {/* Decorative circles */}
+      <div className="absolute top-20 right-10 w-72 h-72 bg-[#4FACFE]/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#00F2FE]/10 rounded-full blur-3xl" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hands with Cans Feature */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <img 
+              src={IMAGES.handsWithCans}
+              alt="NYNE Focus Community"
+              className="w-full h-[400px] lg:h-[500px] object-cover"
+              data-testid="hands-with-cans-image"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#003342] via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 text-center">
+              <h3 className="text-3xl lg:text-4xl font-bold text-white mb-2">Join The Focus Movement</h3>
+              <p className="text-white/70 text-lg">Thousands of high-performers have made the switch</p>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Product Image */}
           <motion.div
@@ -223,11 +272,11 @@ const ProductSection = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#4FACFE]/10 to-[#00F2FE]/10 rounded-3xl" />
+            <div className="absolute -inset-4 bg-gradient-to-br from-[#4FACFE]/40 to-[#00F2FE]/30 rounded-3xl blur-2xl" />
             <img 
               src={IMAGES.supplementFacts}
               alt="NYNE Focus Product"
-              className="relative w-full rounded-2xl"
+              className="relative w-full rounded-3xl shadow-2xl"
               data-testid="product-image"
             />
           </motion.div>
@@ -238,50 +287,54 @@ const ProductSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-[#4FACFE] font-bold text-sm tracking-wider uppercase">Introducing</span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mt-2 mb-2">NYNE FOCUS</h2>
-            <p className="text-[#003342]/60 font-semibold mb-6">Lemon Ginger • 12 Pack</p>
+            <span className="inline-block bg-[#4FACFE]/20 text-[#4FACFE] font-bold text-sm tracking-wider uppercase px-4 py-2 rounded-full mb-4">Introducing</span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mt-2 mb-2">NYNE FOCUS</h2>
+            <p className="text-white/60 font-semibold mb-6 text-lg">Lemon Ginger • 12 Pack</p>
             
-            <p className="text-2xl font-bold text-[#003342] mb-6">$59.99</p>
+            <p className="text-4xl font-bold text-[#FFFE97] mb-8">$59.99</p>
 
             {/* Quantity Selector */}
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-[#003342] font-semibold">Quantity:</span>
-              <div className="flex items-center">
+              <span className="text-white font-semibold">Quantity:</span>
+              <div className="flex items-center bg-white/10 rounded-full overflow-hidden">
                 <button 
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="quantity-btn"
+                  className="w-12 h-12 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                   data-testid="qty-minus"
                 >
-                  <Minus size={16} />
+                  <Minus size={18} />
                 </button>
-                <span className="w-12 text-center font-bold text-[#003342]" data-testid="qty-value">{quantity}</span>
+                <span className="w-12 text-center font-bold text-white text-lg" data-testid="qty-value">{quantity}</span>
                 <button 
                   onClick={() => setQuantity(quantity + 1)}
-                  className="quantity-btn"
+                  className="w-12 h-12 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                   data-testid="qty-plus"
                 >
-                  <Plus size={16} />
+                  <Plus size={18} />
                 </button>
               </div>
             </div>
 
             {/* Add to Cart Button */}
-            <a 
+            <motion.a 
               href={SHOPIFY_URL}
-              className="w-full bg-[#003342] text-white py-4 font-bold text-lg hover:bg-[#4FACFE] transition-colors flex items-center justify-center gap-2 mb-8"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full bg-[#FFFE97] text-[#003342] py-4 font-bold text-lg hover:bg-white transition-colors flex items-center justify-center gap-2 mb-8 rounded-full shadow-xl"
               data-testid="add-to-cart-btn"
             >
               Add to Cart
-            </a>
+            </motion.a>
 
             {/* Benefits */}
-            <div>
-              <h4 className="font-bold text-[#003342] mb-4">What you'll feel:</h4>
+            <div className="bg-white/5 rounded-2xl p-6">
+              <h4 className="font-bold text-white mb-4 text-lg">What you'll feel:</h4>
               <ul className="space-y-3">
                 {benefits.map((benefit, i) => (
-                  <li key={i} className="flex items-center gap-3 text-[#003342]/80">
-                    <Check size={18} className="text-[#4FACFE] flex-shrink-0" />
+                  <li key={i} className="flex items-center gap-3 text-white/80">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#4FACFE] to-[#00F2FE] flex items-center justify-center flex-shrink-0">
+                      <Check size={14} className="text-white" />
+                    </div>
                     <span>{benefit}</span>
                   </li>
                 ))}
@@ -289,6 +342,22 @@ const ProductSection = () => {
             </div>
           </motion.div>
         </div>
+      </div>
+
+      {/* Wave transition */}
+      <div className="absolute bottom-0 left-0 right-0 translate-y-[1px]">
+        <svg viewBox="0 0 1440 120" className="w-full h-20 sm:h-28" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="oceanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#4FACFE" />
+              <stop offset="100%" stopColor="#00F2FE" />
+            </linearGradient>
+          </defs>
+          <path 
+            fill="url(#oceanGradient)" 
+            d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,58.7C840,43,960,21,1080,21.3C1200,21,1320,43,1380,53.3L1440,64L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"
+          />
+        </svg>
       </div>
     </section>
   );
@@ -310,19 +379,23 @@ const IngredientsSection = () => {
   ];
 
   return (
-    <section id="ingredients" className="py-20 lg:py-32 bg-gradient-to-b from-[#4FACFE]/5 to-white" data-testid="ingredients-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="ingredients" className="relative py-20 lg:py-28 bg-gradient-to-b from-[#4FACFE] to-[#00F2FE] overflow-hidden" data-testid="ingredients-section">
+      {/* Decorative elements */}
+      <div className="absolute top-10 left-10 w-40 h-40 bg-white/20 rounded-full blur-2xl" />
+      <div className="absolute bottom-10 right-10 w-60 h-60 bg-[#FFFE97]/20 rounded-full blur-3xl" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-[#4FACFE] font-bold text-sm tracking-wider uppercase mb-4 block">The Science</span>
+          <span className="inline-block bg-white/20 text-[#003342] font-bold text-sm tracking-wider uppercase px-4 py-2 rounded-full mb-4">The Science</span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-4">
             Exactly What's In The Can
           </h2>
-          <p className="text-lg text-[#003342]/60 max-w-2xl mx-auto">
+          <p className="text-lg text-[#003342]/80 max-w-2xl mx-auto">
             Every ingredient is clinically studied and purposefully dosed for optimal cognitive performance.
           </p>
         </motion.div>
@@ -335,17 +408,28 @@ const IngredientsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="ingredient-card bg-white p-6 border border-[#003342]/10 hover:border-[#4FACFE]/50 transition-all"
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-white"
               data-testid={`ingredient-${i}`}
             >
               <div className="flex items-start justify-between mb-2">
                 <h4 className="font-bold text-[#003342]">{ing.name}</h4>
-                <span className="text-[#4FACFE] font-bold text-sm bg-[#4FACFE]/10 px-2 py-1">{ing.amount}</span>
+                <span className="text-[#003342] font-bold text-sm bg-[#FFFE97] px-3 py-1 rounded-full">{ing.amount}</span>
               </div>
-              <p className="text-sm text-[#003342]/60">{ing.benefit}</p>
+              <p className="text-sm text-[#003342]/70">{ing.benefit}</p>
             </motion.div>
           ))}
         </div>
+      </div>
+
+      {/* Wave transition */}
+      <div className="absolute bottom-0 left-0 right-0 translate-y-[1px]">
+        <svg viewBox="0 0 1440 120" className="w-full h-20 sm:h-28" preserveAspectRatio="none">
+          <path 
+            fill="#FFFE97" 
+            d="M0,96L48,85.3C96,75,192,53,288,58.7C384,64,480,96,576,101.3C672,107,768,85,864,74.7C960,64,1056,64,1152,69.3C1248,75,1344,85,1392,90.7L1440,96L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
+          />
+        </svg>
       </div>
     </section>
   );
@@ -365,27 +449,37 @@ const ComparisonSection = () => {
   const renderValue = (value, isNyne = false) => {
     if (typeof value === 'boolean') {
       return value ? (
-        <Check size={20} className="text-green-500 mx-auto" />
+        <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center mx-auto">
+          <Check size={18} className="text-green-600" />
+        </div>
       ) : (
-        <X size={20} className="text-red-400 mx-auto" />
+        <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center mx-auto">
+          <X size={18} className="text-red-500" />
+        </div>
       );
     }
-    return <span className={`font-semibold ${isNyne ? 'text-[#4FACFE]' : ''}`}>{value}</span>;
+    return <span className={`font-semibold ${isNyne ? 'text-[#003342]' : ''}`}>{value}</span>;
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-[#003342]" data-testid="comparison-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 lg:py-28 bg-[#FFFE97] overflow-hidden" data-testid="comparison-section">
+      <div className="absolute top-0 left-0 w-full h-full opacity-30">
+        {/* Subtle pattern */}
+        <div className="absolute top-20 right-20 w-40 h-40 border-4 border-[#4FACFE]/30 rounded-full" />
+        <div className="absolute bottom-20 left-20 w-60 h-60 border-4 border-[#00F2FE]/30 rounded-full" />
+      </div>
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-4">
             NYNE vs The Rest
           </h2>
-          <p className="text-lg text-white/60">
+          <p className="text-lg text-[#003342]/70">
             See how NYNE FOCUS compares to what you're currently using.
           </p>
         </motion.div>
@@ -396,35 +490,44 @@ const ComparisonSection = () => {
           viewport={{ once: true }}
           className="overflow-x-auto"
         >
-          <table className="w-full min-w-[600px] comparison-table" data-testid="comparison-table">
+          <table className="w-full min-w-[600px] bg-white rounded-3xl overflow-hidden shadow-2xl" data-testid="comparison-table">
             <thead>
-              <tr className="border-b border-white/20">
-                <th className="text-left text-white/60 font-semibold py-4 px-4"></th>
-                <th className="text-center text-[#4FACFE] font-bold py-4 px-4 bg-white/5">NYNE FOCUS</th>
-                <th className="text-center text-white/60 font-semibold py-4 px-4">Coffee</th>
-                <th className="text-center text-white/60 font-semibold py-4 px-4">Energy Drinks</th>
-                <th className="text-center text-white/60 font-semibold py-4 px-4">Pre-Workout</th>
+              <tr className="border-b-2 border-[#4FACFE]/20">
+                <th className="text-left text-[#003342]/60 font-semibold py-5 px-6"></th>
+                <th className="text-center text-[#003342] font-bold py-5 px-6 bg-gradient-to-b from-[#4FACFE]/20 to-[#00F2FE]/10">NYNE FOCUS</th>
+                <th className="text-center text-[#003342]/60 font-semibold py-5 px-6">Coffee</th>
+                <th className="text-center text-[#003342]/60 font-semibold py-5 px-6">Energy Drinks</th>
+                <th className="text-center text-[#003342]/60 font-semibold py-5 px-6">Pre-Workout</th>
               </tr>
             </thead>
             <tbody>
               {comparisons.map((row, i) => (
-                <tr key={i} className="border-b border-white/10">
-                  <td className="text-white font-semibold py-4 px-4">{row.feature}</td>
-                  <td className="text-center text-white py-4 px-4 bg-white/5">
+                <tr key={i} className="border-b border-[#003342]/5 last:border-b-0 hover:bg-[#4FACFE]/5 transition-colors">
+                  <td className="text-[#003342] font-semibold py-4 px-6">{row.feature}</td>
+                  <td className="text-center text-[#003342] py-4 px-6 bg-gradient-to-b from-[#4FACFE]/10 to-[#00F2FE]/5">
                     {row.nyneGood !== undefined ? renderValue(row.nyneGood, true) : renderValue(row.nyne, true)}
                   </td>
-                  <td className="text-center text-white/60 py-4 px-4">{renderValue(row.coffee)}</td>
-                  <td className="text-center text-white/60 py-4 px-4">{renderValue(row.energy)}</td>
-                  <td className="text-center text-white/60 py-4 px-4">{renderValue(row.preworkout)}</td>
+                  <td className="text-center text-[#003342]/60 py-4 px-6">{renderValue(row.coffee)}</td>
+                  <td className="text-center text-[#003342]/60 py-4 px-6">{renderValue(row.energy)}</td>
+                  <td className="text-center text-[#003342]/60 py-4 px-6">{renderValue(row.preworkout)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </motion.div>
       </div>
+
+      {/* Wave transition */}
+      <div className="absolute bottom-0 left-0 right-0 translate-y-[1px]">
+        <svg viewBox="0 0 1440 120" className="w-full h-20 sm:h-28" preserveAspectRatio="none">
+          <path 
+            fill="white" 
+            d="M0,64L60,58.7C120,53,240,43,360,48C480,53,600,75,720,80C840,85,960,75,1080,64C1200,53,1320,43,1380,37.3L1440,32L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"
+          />
+        </svg>
+      </div>
     </section>
   );
-};
 };
 
 // Section 6: FAQ
@@ -451,7 +554,7 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="py-20 lg:py-32 bg-white" data-testid="faq-section">
+    <section id="faq" className="py-20 lg:py-28 bg-white" data-testid="faq-section">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -464,7 +567,7 @@ const FAQSection = () => {
           </h2>
         </motion.div>
 
-        <div className="space-y-0">
+        <div className="space-y-4">
           {faqs.map((faq, i) => (
             <motion.div
               key={i}
@@ -472,25 +575,24 @@ const FAQSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="faq-item"
+              className="bg-gradient-to-br from-[#4FACFE]/10 to-[#00F2FE]/10 rounded-2xl overflow-hidden border border-[#4FACFE]/20"
               data-testid={`faq-${i}`}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full py-6 flex items-center justify-between text-left"
+                className="w-full py-5 px-6 flex items-center justify-between text-left hover:bg-[#4FACFE]/5 transition-colors"
                 data-testid={`faq-toggle-${i}`}
               >
                 <span className="font-bold text-[#003342] pr-4">{faq.question}</span>
-                <ChevronDown 
-                  size={20} 
-                  className={`text-[#4FACFE] flex-shrink-0 transition-transform ${openIndex === i ? 'rotate-180' : ''}`}
-                />
+                <div className={`w-8 h-8 rounded-full bg-[#4FACFE]/20 flex items-center justify-center flex-shrink-0 transition-transform ${openIndex === i ? 'rotate-180' : ''}`}>
+                  <ChevronDown size={18} className="text-[#4FACFE]" />
+                </div>
               </button>
               {openIndex === i && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
-                  className="pb-6"
+                  className="px-6 pb-5"
                 >
                   <p className="text-[#003342]/70 leading-relaxed">{faq.answer}</p>
                 </motion.div>
@@ -510,22 +612,28 @@ const CTASection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Placeholder for Klaviyo integration
     setSubmitted(true);
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-gradient-to-br from-[#4FACFE] to-[#00F2FE]" data-testid="cta-section">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="relative py-24 lg:py-32 overflow-hidden bg-[#003342]" data-testid="cta-section">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-10 right-10 w-40 h-40 bg-[#4FACFE]/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-60 h-60 bg-[#00F2FE]/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FFFE97]/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-6">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
             You Know What To Do
           </h2>
-          <p className="text-lg text-[#003342]/80 mb-10 max-w-xl mx-auto">
+          <p className="text-xl text-white/70 mb-10 max-w-xl mx-auto">
             Join thousands of high-performing professionals who've upgraded their fuel.
           </p>
 
@@ -538,18 +646,20 @@ const CTASection = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="email-input flex-1 px-5 py-4 text-[#003342] placeholder-[#003342]/40 font-medium"
+                  className="flex-1 px-6 py-4 bg-white text-[#003342] placeholder-[#003342]/40 font-medium rounded-full focus:outline-none focus:ring-4 focus:ring-[#4FACFE]/50 shadow-lg"
                   data-testid="email-input"
                 />
-                <button
+                <motion.button
                   type="submit"
-                  className="bg-[#003342] text-white px-8 py-4 font-bold hover:bg-[#003342]/90 transition-colors whitespace-nowrap"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-[#FFFE97] text-[#003342] px-8 py-4 font-bold hover:bg-white transition-colors rounded-full whitespace-nowrap shadow-lg"
                   data-testid="cta-submit-btn"
                 >
                   Get 15% Off
-                </button>
+                </motion.button>
               </div>
-              <p className="text-sm text-[#003342]/60 mt-4">
+              <p className="text-sm text-white/50 mt-4">
                 Sign up to receive 15% off your first order.
               </p>
             </form>
@@ -557,23 +667,27 @@ const CTASection = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-white/20 backdrop-blur-sm p-8 max-w-md mx-auto"
+              className="bg-white/10 backdrop-blur-sm p-8 max-w-md mx-auto rounded-3xl border border-white/20"
               data-testid="cta-success"
             >
-              <Check size={48} className="text-[#003342] mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-[#003342] mb-2">You're In!</h3>
-              <p className="text-[#003342]/80">Check your email for your 15% discount code.</p>
+              <div className="w-16 h-16 rounded-full bg-[#FFFE97] flex items-center justify-center mx-auto mb-4">
+                <Check size={32} className="text-[#003342]" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">You're In!</h3>
+              <p className="text-white/70">Check your email for your 15% discount code.</p>
             </motion.div>
           )}
 
           <div className="mt-12">
-            <a 
+            <motion.a 
               href={SHOPIFY_URL}
-              className="inline-flex items-center gap-2 bg-[#003342] text-white px-10 py-5 font-bold text-lg hover:bg-[#003342]/90 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 bg-[#FFFE97] text-[#003342] px-12 py-5 font-bold text-lg hover:bg-white transition-colors rounded-full shadow-xl"
               data-testid="cta-shop-btn"
             >
               Shop NYNE FOCUS <ArrowRight size={20} />
-            </a>
+            </motion.a>
           </div>
         </motion.div>
       </div>
@@ -584,20 +698,19 @@ const CTASection = () => {
 // Footer
 const Footer = () => {
   return (
-    <footer className="bg-[#003342] py-12" data-testid="footer">
+    <footer className="bg-[#003342] py-12 border-t border-white/10" data-testid="footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-1">
-            <span className="text-2xl font-bold text-white">NYNE</span>
-            <span className="text-xl font-semibold text-[#4FACFE]">FOCUS</span>
+          <div className="flex items-center">
+            <img src={IMAGES.logo} alt="NYNE Focus" className="h-10 w-auto" />
           </div>
 
           <nav className="flex flex-wrap items-center justify-center gap-6 text-sm">
-            <a href="#problem" className="text-white/60 hover:text-white font-semibold">The Problem</a>
-            <a href="#product" className="text-white/60 hover:text-white font-semibold">Product</a>
-            <a href="#ingredients" className="text-white/60 hover:text-white font-semibold">Ingredients</a>
-            <a href="#faq" className="text-white/60 hover:text-white font-semibold">FAQ</a>
-            <a href="mailto:hello@nynefocus.com" className="text-white/60 hover:text-white font-semibold">Contact</a>
+            <a href="#problem" className="text-white/60 hover:text-white font-semibold transition-colors">The Problem</a>
+            <a href="#product" className="text-white/60 hover:text-white font-semibold transition-colors">Product</a>
+            <a href="#ingredients" className="text-white/60 hover:text-white font-semibold transition-colors">Ingredients</a>
+            <a href="#faq" className="text-white/60 hover:text-white font-semibold transition-colors">FAQ</a>
+            <a href="mailto:hello@nynefocus.com" className="text-white/60 hover:text-white font-semibold transition-colors">Contact</a>
           </nav>
 
           <p className="text-white/40 text-sm">
@@ -612,7 +725,7 @@ const Footer = () => {
 // Main Landing Page
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-white" data-testid="landing-page">
+    <div className="min-h-screen bg-white overflow-x-hidden" data-testid="landing-page">
       <Header />
       <HeroSection />
       <ProblemSection />
