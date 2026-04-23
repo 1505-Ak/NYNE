@@ -107,3 +107,136 @@ body {
 .faq-item:last-child {
   border-bottom: none;
 }
+
+/* ========== NYNE Custom Effects ========== */
+
+/* Grain texture overlay */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.grain-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+/* Floating can animation */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-16px); }
+}
+
+@keyframes float-y-sm {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-8px); }
+}
+
+.float-slow { animation: float-y 6s ease-in-out infinite; }
+.float-med  { animation: float-y 4.5s ease-in-out infinite; }
+.float-sm   { animation: float-y-sm 3.5s ease-in-out infinite; }
+
+/* Gentle rotate on hover */
+@keyframes tilt {
+  0%, 100% { transform: rotate(-2deg); }
+  50%      { transform: rotate(2deg); }
+}
+.animate-tilt { animation: tilt 7s ease-in-out infinite; }
+
+/* Shimmer gradient text */
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, #4FACFE 0%, #00F2FE 25%, #FFFE97 50%, #00F2FE 75%, #4FACFE 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+/* Marquee scroller */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.marquee-track.fast { animation-duration: 22s; }
+.marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+
+/* Glow ring pulse */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0.35), 0 0 60px 10px rgba(0, 242, 254, 0.25); }
+  50%      { box-shadow: 0 0 0 12px rgba(79, 172, 254, 0.0), 0 0 90px 20px rgba(0, 242, 254, 0.35); }
+}
+.pulse-glow { animation: pulse-glow 3.5s ease-in-out infinite; }
+
+/* Spinning orbit */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-slow { animation: spin-slow 30s linear infinite; }
+
+/* Marquee tape (rotated sticker strip) */
+.tape-strip {
+  background: repeating-linear-gradient(
+    45deg,
+    #FFFE97 0 20px,
+    #003342 20px 22px,
+    #FFFE97 22px 42px
+  );
+}
+
+/* Noise on dark sections */
+.noise-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+/* Sticker badge style */
+.sticker {
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.05),
+    0 6px 14px rgba(0, 51, 66, 0.12),
+    inset 0 -4px 0 rgba(0,0,0,0.06);
+}
+
+/* Conic gradient spotlight for cards */
+.conic-border {
+  position: relative;
+}
+.conic-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from 90deg, #4FACFE, #00F2FE, #FFFE97, #4FACFE);
+  opacity: 0.55;
+  filter: blur(6px);
+}

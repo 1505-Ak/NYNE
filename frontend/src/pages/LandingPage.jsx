@@ -123,35 +123,81 @@ const Header = () => {
 // Section 1: Hero
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[90vh] overflow-hidden" data-testid="hero-section">
+    <section className="relative min-h-[92vh] overflow-hidden grain" data-testid="hero-section">
       <div className="absolute inset-0">
         <img src={IMAGES.heroLifestyle} alt="NYNE Focus" className="w-full h-full object-cover object-right" data-testid="hero-background-image"/>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#003342]/80 via-[#003342]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#003342]/85 via-[#003342]/45 to-[#003342]/10" />
       </div>
 
-      <div className="relative z-10 h-full min-h-[90vh] flex items-center">
+      {/* Decorative floating blobs */}
+      <motion.div
+        aria-hidden
+        className="absolute -top-20 -left-16 w-80 h-80 rounded-full bg-[#4FACFE]/30 blur-3xl"
+        animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute bottom-24 right-10 w-96 h-96 rounded-full bg-[#00F2FE]/25 blur-3xl"
+        animate={{ y: [0, -25, 0], x: [0, -15, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="relative z-10 h-full min-h-[92vh] flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16">
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-xl">
-            <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="inline-block bg-[#FFFE97] text-[#003342] font-bold text-xs sm:text-sm tracking-wider uppercase px-4 py-2 rounded-full mb-6">
-              Nootropic Energy Drink
+            <motion.span
+              initial={{ opacity: 0, x: -20, rotate: -6 }}
+              animate={{ opacity: 1, x: 0, rotate: -3 }}
+              transition={{ delay: 0.3 }}
+              className="inline-block bg-[#FFFE97] text-[#003342] font-bold text-xs sm:text-sm tracking-widest uppercase px-5 py-2 rounded-full mb-6 sticker"
+            >
+              · Nootropic Energy Drink ·
             </motion.span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[0.95] mb-6">
-              Take Back<br /><span className="bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] bg-clip-text text-transparent">Your Focus</span>
+              Take Back<br />
+              <span className="shimmer-text">Your Focus.</span>
             </h1>
-            <p className="text-lg sm:text-xl text-white/80 mb-8 max-w-md font-medium">
+            <p className="text-lg sm:text-xl text-white/85 mb-8 max-w-md font-medium">
               Your competitors are still on coffee. You don't have to be.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <motion.a href="#product" whileHover={{ scale: 1.05 }} className="bg-[#FFFE97] text-[#003342] px-8 py-4 font-bold text-base hover:bg-white transition-colors inline-flex items-center justify-center gap-2 rounded-full shadow-xl" data-testid="hero-cta-btn">
+              <motion.a href="#product" whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }} className="bg-[#FFFE97] text-[#003342] px-8 py-4 font-bold text-base hover:bg-white transition-colors inline-flex items-center justify-center gap-2 rounded-full shadow-xl sticker" data-testid="hero-cta-btn">
                 Shop Now <ArrowRight size={18} />
               </motion.a>
-              <motion.a href="#problem" whileHover={{ scale: 1.05 }} className="border-2 border-white/50 text-white px-8 py-4 font-semibold text-base hover:bg-white/10 transition-colors text-center rounded-full" data-testid="hero-learn-btn">
+              <motion.a href="#problem" whileHover={{ scale: 1.05 }} className="border-2 border-white/50 text-white px-8 py-4 font-semibold text-base hover:bg-white/10 transition-colors text-center rounded-full backdrop-blur-sm" data-testid="hero-learn-btn">
                 Learn More
               </motion.a>
             </div>
+
+            {/* Trust row */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="mt-10 flex items-center gap-5 text-white/85 text-sm font-semibold"
+            >
+              <div className="flex -space-x-2">
+                {[1,2,3,4].map(i => (
+                  <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gradient-to-br from-[#4FACFE] to-[#00F2FE]" />
+                ))}
+              </div>
+              <span>Trusted by 2,000+ high performers</span>
+            </motion.div>
           </motion.div>
         </div>
       </div>
+
+      {/* Scroll cue */}
+      <motion.div
+        aria-hidden
+        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 hidden lg:flex flex-col items-center gap-2"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <span className="text-white/70 text-xs uppercase tracking-[0.3em] font-bold">Scroll</span>
+        <div className="w-[2px] h-10 bg-gradient-to-b from-white/70 to-transparent" />
+      </motion.div>
 
       <div className="absolute bottom-0 left-0 right-0">
         <svg viewBox="0 0 1440 80" className="w-full h-14 sm:h-16 lg:h-20" preserveAspectRatio="none">
@@ -162,41 +208,100 @@ const HeroSection = () => {
   );
 };
 
-// Section 2: The Problem - Clean layout with image beside text
+// Section 2: The Problem - Funky yet sensible asymmetric layout
 const ProblemSection = () => {
   const problems = [
-    { text: "Coffee crashes you at 2pm", icon: "☕" },
-    { text: "Energy drinks spike your anxiety", icon: "⚡" },
-    { text: "Other stimulants work until they don't", icon: "💊" },
-    { text: "None of these were built for what you actually do", icon: "🎯" },
+    { text: "Coffee crashes you at 2pm", tag: "The Afternoon Slump", color: "bg-white" },
+    { text: "Energy drinks spike your anxiety", tag: "Too Much, Too Fast", color: "bg-white" },
+    { text: "Other stimulants work until they don't", tag: "The Fizzle Out", color: "bg-white" },
+    { text: "None of these were built for what you actually do", tag: "Wrong Fuel", color: "bg-white" },
   ];
 
   return (
-    <section id="problem" className="relative bg-[#FFFE97] py-20 lg:py-28 overflow-hidden" data-testid="problem-section">
+    <section id="problem" className="relative bg-[#FFFE97] py-24 lg:py-32 overflow-hidden grain-light" data-testid="problem-section">
+      {/* Decorative circles */}
+      <div aria-hidden className="absolute top-10 right-8 w-32 h-32 rounded-full border-4 border-[#003342]/10 spin-slow" />
+      <div aria-hidden className="absolute bottom-40 left-8 w-24 h-24 rounded-full border-4 border-dashed border-[#003342]/15 spin-slow" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-4">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16 max-w-3xl mx-auto">
+          <span className="inline-block bg-[#003342] text-[#FFFE97] font-bold text-xs tracking-[0.3em] uppercase px-4 py-1.5 rounded-full mb-5">The Problem</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003342] mb-4 leading-tight">
             You work long hours. You've built a routine.
+            <br />
+            <span className="italic text-[#003342]/70">But your fuel is the problem.</span>
           </h2>
-          <p className="text-xl lg:text-2xl text-[#003342]/80 font-semibold">But your fuel is the problem.</p>
         </motion.div>
 
-        {/* Two column: Problems + Image */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Problem Cards */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            {problems.map((problem, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ y: -4 }} className="bg-white p-6 text-center rounded-2xl shadow-lg hover:shadow-xl transition-all" data-testid={`problem-card-${i}`}>
-                <span className="text-4xl mb-3 block">{problem.icon}</span>
-                <p className="text-[#003342] font-bold">{problem.text}</p>
+        {/* Asymmetric grid: Cards left, tilted image right */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Problem Cards - left */}
+          <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+            {problems.map((p, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30, rotate: i % 2 === 0 ? -2 : 2 }}
+                whileInView={{ opacity: 1, y: 0, rotate: i % 2 === 0 ? -1.5 : 1.5 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, type: 'spring', stiffness: 120 }}
+                whileHover={{ y: -6, rotate: 0, scale: 1.02 }}
+                className={`relative ${p.color} p-6 pt-7 rounded-2xl sticker border border-[#003342]/10`}
+                data-testid={`problem-card-${i}`}
+              >
+                <div className="absolute -top-3 left-5 bg-[#003342] text-[#FFFE97] text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1 rounded-full">
+                  0{i + 1} · {p.tag}
+                </div>
+                <div className="flex items-start gap-3 mt-2">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#4FACFE] to-[#00F2FE] flex items-center justify-center text-white">
+                    <X size={16} strokeWidth={3} />
+                  </div>
+                  <p className="text-[#003342] font-bold leading-snug text-[15px]">{p.text}</p>
+                </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Pouring Cans Image */}
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
-            <img src={IMAGES.pouringCans} alt="NYNE Focus being poured" className="w-full max-w-md mx-auto rounded-3xl shadow-2xl" data-testid="pouring-image"/>
+          {/* Tilted pouring image - right */}
+          <motion.div
+            initial={{ opacity: 0, x: 40, rotate: 6 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 4 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, type: 'spring' }}
+            className="lg:col-span-5 relative"
+          >
+            <div className="relative">
+              {/* Glow ring */}
+              <div aria-hidden className="absolute -inset-6 rounded-[40px] bg-gradient-to-br from-[#4FACFE]/40 to-[#00F2FE]/30 blur-2xl" />
+              {/* Image with tilt + float */}
+              <motion.div
+                whileHover={{ rotate: 0, scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 200 }}
+                className="relative float-slow"
+              >
+                <img
+                  src={IMAGES.pouringCans}
+                  alt="NYNE Focus being poured"
+                  className="w-full max-w-md mx-auto rounded-[32px] shadow-2xl border-4 border-white"
+                  data-testid="pouring-image"
+                />
+                {/* Polaroid sticker */}
+                <div className="absolute -bottom-4 -right-2 rotate-6 bg-white px-4 py-2 rounded-xl sticker">
+                  <p className="text-[#003342] text-xs font-bold tracking-wide">Pour. Focus. Ship it.</p>
+                </div>
+                {/* Star badge */}
+                <motion.div
+                  initial={{ scale: 0, rotate: -20 }}
+                  whileInView={{ scale: 1, rotate: -10 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6, type: 'spring' }}
+                  className="absolute -top-5 -left-5 w-24 h-24 rounded-full bg-[#003342] text-[#FFFE97] flex flex-col items-center justify-center text-center font-bold sticker"
+                >
+                  <span className="text-[10px] tracking-widest">BUILT FOR</span>
+                  <span className="text-sm leading-tight">HIGH<br/>PERFORMERS</span>
+                </motion.div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -223,52 +328,98 @@ const ProductSection = () => {
   ];
 
   return (
-    <section id="product" className="relative py-20 lg:py-28 bg-[#003342] overflow-hidden" data-testid="product-section">
-      <div className="absolute top-20 right-10 w-72 h-72 bg-[#4FACFE]/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#00F2FE]/10 rounded-full blur-3xl" />
+    <section id="product" className="relative py-24 lg:py-32 bg-[#003342] overflow-hidden noise-dark" data-testid="product-section">
+      {/* Animated blobs */}
+      <motion.div
+        aria-hidden
+        className="absolute top-20 right-10 w-72 h-72 bg-[#4FACFE]/30 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0.9, 0.6] }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute bottom-20 left-10 w-96 h-96 bg-[#00F2FE]/15 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+      />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Product Image */}
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-br from-[#4FACFE]/40 to-[#00F2FE]/30 rounded-3xl blur-2xl" />
-            <img src={IMAGES.canTennis} alt="NYNE Focus Can" className="relative w-full rounded-3xl shadow-2xl" data-testid="product-image"/>
+            {/* Rotating conic ring behind */}
+            <div aria-hidden className="absolute inset-0 flex items-center justify-center">
+              <div className="w-[110%] h-[110%] rounded-full opacity-40 blur-2xl spin-slow" style={{ background: 'conic-gradient(from 0deg, #4FACFE, #00F2FE, #FFFE97, #4FACFE)' }} />
+            </div>
+            {/* Floating can */}
+            <motion.div
+              className="relative float-slow"
+              whileHover={{ scale: 1.03, rotate: -1 }}
+              transition={{ type: 'spring', stiffness: 150 }}
+            >
+              <img src={IMAGES.canTennis} alt="NYNE Focus Can" className="relative w-full rounded-3xl shadow-2xl" data-testid="product-image"/>
+              {/* Floating sticker label */}
+              <motion.div
+                initial={{ scale: 0, rotate: 15 }}
+                whileInView={{ scale: 1, rotate: 8 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, type: 'spring' }}
+                className="absolute -top-4 -right-4 bg-[#FFFE97] text-[#003342] px-4 py-3 rounded-2xl sticker font-bold text-sm leading-tight"
+              >
+                <div className="text-[10px] tracking-[0.2em] opacity-70">NEW</div>
+                <div>Lemon Ginger</div>
+              </motion.div>
+            </motion.div>
           </motion.div>
 
           {/* Product Details */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <span className="inline-block bg-[#4FACFE]/20 text-[#4FACFE] font-bold text-sm tracking-wider uppercase px-4 py-2 rounded-full mb-4">Introducing</span>
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mt-2 mb-2">NYNE FOCUS</h2>
-            <p className="text-white/60 font-semibold mb-2 text-lg">Flavor: Lemon Ginger</p>
+            <span className="inline-block bg-[#4FACFE]/20 text-[#4FACFE] font-bold text-xs tracking-[0.3em] uppercase px-4 py-2 rounded-full mb-4">Introducing</span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mt-2 mb-2">NYNE <span className="shimmer-text">FOCUS</span></h2>
+            <p className="text-white/60 font-semibold mb-1 text-lg">Flavor: Lemon Ginger</p>
             <p className="text-white/60 font-semibold mb-6 text-lg">Pack Size: 12 Pack</p>
             
-            <p className="text-4xl font-bold text-[#FFFE97] mb-8">$59.99</p>
+            <div className="flex items-baseline gap-3 mb-8">
+              <p className="text-5xl font-bold text-[#FFFE97]">$59.99</p>
+              <p className="text-white/50 line-through">$69.99</p>
+              <span className="bg-[#FFFE97] text-[#003342] text-xs font-bold px-2 py-1 rounded-full">Save 14%</span>
+            </div>
 
             {/* Quantity Selector */}
             <div className="flex items-center gap-4 mb-6">
               <span className="text-white font-semibold">Quantity:</span>
-              <div className="flex items-center bg-white/10 rounded-full overflow-hidden">
+              <div className="flex items-center bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-12 h-12 flex items-center justify-center text-white hover:bg-white/20 transition-colors" data-testid="qty-minus"><Minus size={18} /></button>
                 <span className="w-12 text-center font-bold text-white text-lg" data-testid="qty-value">{quantity}</span>
                 <button onClick={() => setQuantity(quantity + 1)} className="w-12 h-12 flex items-center justify-center text-white hover:bg-white/20 transition-colors" data-testid="qty-plus"><Plus size={18} /></button>
               </div>
             </div>
 
-            <motion.a href={SHOPIFY_URL} whileHover={{ scale: 1.02 }} className="w-full bg-[#FFFE97] text-[#003342] py-4 font-bold text-lg hover:bg-white transition-colors flex items-center justify-center gap-2 mb-8 rounded-full shadow-xl" data-testid="add-to-cart-btn">
-              Add to Cart
+            <motion.a href={SHOPIFY_URL} whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }} className="w-full bg-[#FFFE97] text-[#003342] py-4 font-bold text-lg hover:bg-white transition-colors flex items-center justify-center gap-2 mb-8 rounded-full shadow-xl sticker" data-testid="add-to-cart-btn">
+              Add to Cart <ArrowRight size={18} />
             </motion.a>
 
             {/* Benefits */}
-            <div className="bg-white/5 rounded-2xl p-6">
-              <h4 className="font-bold text-white mb-4 text-lg">What you'll feel:</h4>
+            <div className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
+              <h4 className="font-bold text-white mb-4 text-lg flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-[#00F2FE] animate-pulse" />
+                What you'll feel
+              </h4>
               <ul className="space-y-3">
                 {benefits.map((benefit, i) => (
-                  <li key={i} className="flex items-center gap-3 text-white/80">
-                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#4FACFE] to-[#00F2FE] flex items-center justify-center flex-shrink-0">
-                      <Check size={14} className="text-white" />
+                  <motion.li
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    className="flex items-center gap-3 text-white/85"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#4FACFE] to-[#00F2FE] flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Check size={14} className="text-white" strokeWidth={3} />
                     </div>
                     <span>{benefit}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </div>
@@ -281,6 +432,47 @@ const ProductSection = () => {
           <defs><linearGradient id="oceanGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#4FACFE" /><stop offset="100%" stopColor="#00F2FE" /></linearGradient></defs>
           <path fill="url(#oceanGradient)" d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,58.7C840,43,960,21,1080,21.3C1200,21,1320,43,1380,53.3L1440,64L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"/>
         </svg>
+      </div>
+    </section>
+  );
+};
+
+// Section 3.5: Motto Marquee - tape-like ticker
+const MarqueeSection = () => {
+  const phrases = [
+    "NO CRASH",
+    "NO JITTERS",
+    "NO SUGAR",
+    "8 NOOTROPICS",
+    "CLEAN ENERGY",
+    "FOR HIGH PERFORMERS",
+    "BUILT TO SHIP",
+    "LEMON GINGER",
+  ];
+
+  const row = [...phrases, ...phrases, ...phrases];
+
+  return (
+    <section className="relative bg-gradient-to-r from-[#4FACFE] to-[#00F2FE] overflow-hidden py-10" data-testid="marquee-section">
+      <div className="marquee-wrap relative py-5 -rotate-2 origin-center bg-[#003342] border-y-4 border-[#FFFE97]">
+        <div className="marquee-track">
+          {row.map((phrase, i) => (
+            <div key={i} className="flex items-center gap-8 px-8">
+              <span className="text-[#FFFE97] font-bold text-2xl lg:text-3xl tracking-wider whitespace-nowrap">{phrase}</span>
+              <span className="text-[#00F2FE] text-3xl">✦</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="marquee-wrap relative py-4 rotate-2 origin-center bg-[#FFFE97] -mt-1 border-y-4 border-[#003342]">
+        <div className="marquee-track fast" style={{ animationDirection: 'reverse' }}>
+          {row.map((phrase, i) => (
+            <div key={i} className="flex items-center gap-8 px-8">
+              <span className="text-[#003342] font-bold text-xl lg:text-2xl tracking-wider whitespace-nowrap">{phrase}</span>
+              <span className="text-[#4FACFE] text-2xl">●</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -312,10 +504,21 @@ const IngredientsSection = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {ingredients.map((ing, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} whileHover={{ y: -4 }} className="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-lg hover:shadow-2xl transition-all" data-testid={`ingredient-${i}`}>
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              whileHover={{ y: -6, rotate: i % 2 === 0 ? -0.5 : 0.5 }}
+              className="bg-white/95 backdrop-blur-sm p-5 rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-white/50 relative overflow-hidden group"
+              data-testid={`ingredient-${i}`}
+            >
+              {/* Gradient bar on top */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#4FACFE] via-[#00F2FE] to-[#FFFE97] opacity-60 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-start justify-between mb-2">
                 <h4 className="font-bold text-[#003342]">{ing.name}</h4>
-                <span className="text-[#003342] font-bold text-sm bg-[#FFFE97] px-3 py-1 rounded-full">{ing.amount}</span>
+                <span className="text-[#003342] font-bold text-sm bg-[#FFFE97] px-3 py-1 rounded-full shrink-0 ml-2">{ing.amount}</span>
               </div>
               <p className="text-sm text-[#003342]/70">{ing.benefit}</p>
             </motion.div>
@@ -360,11 +563,16 @@ const ComparisonSection = () => {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="overflow-x-auto">
-          <table className="w-full min-w-[600px] bg-white rounded-3xl overflow-hidden shadow-2xl" data-testid="comparison-table">
+          <table className="w-full min-w-[600px] bg-white rounded-3xl overflow-hidden shadow-2xl relative" data-testid="comparison-table">
             <thead>
               <tr className="border-b-2 border-[#4FACFE]/20">
                 <th className="text-left text-[#003342]/60 font-semibold py-5 px-6"></th>
-                <th className="text-center text-[#003342] font-bold py-5 px-6 bg-gradient-to-b from-[#4FACFE]/20 to-[#00F2FE]/10">NYNE FOCUS</th>
+                <th className="text-center text-[#003342] font-bold py-5 px-6 bg-gradient-to-b from-[#4FACFE]/25 to-[#00F2FE]/10 relative">
+                  <div className="flex items-center justify-center gap-2">
+                    NYNE FOCUS
+                    <span className="inline-block bg-[#FFFE97] text-[#003342] text-[10px] tracking-widest px-2 py-0.5 rounded-full font-bold">WINNER</span>
+                  </div>
+                </th>
                 <th className="text-center text-[#003342]/60 font-semibold py-5 px-6">Coffee</th>
                 <th className="text-center text-[#003342]/60 font-semibold py-5 px-6">Energy Drinks</th>
                 <th className="text-center text-[#003342]/60 font-semibold py-5 px-6">Pre-Workout</th>
@@ -374,7 +582,7 @@ const ComparisonSection = () => {
               {comparisons.map((row, i) => (
                 <tr key={i} className="border-b border-[#003342]/5 last:border-b-0 hover:bg-[#4FACFE]/5 transition-colors">
                   <td className="text-[#003342] font-semibold py-4 px-6">{row.feature}</td>
-                  <td className="text-center text-[#003342] py-4 px-6 bg-gradient-to-b from-[#4FACFE]/10 to-[#00F2FE]/5">{row.nyneGood !== undefined ? renderValue(row.nyneGood, true) : renderValue(row.nyne, true)}</td>
+                  <td className="text-center text-[#003342] py-4 px-6 bg-gradient-to-b from-[#4FACFE]/10 to-[#00F2FE]/5 font-bold">{row.nyneGood !== undefined ? renderValue(row.nyneGood, true) : renderValue(row.nyne, true)}</td>
                   <td className="text-center text-[#003342]/60 py-4 px-6">{renderValue(row.coffee)}</td>
                   <td className="text-center text-[#003342]/60 py-4 px-6">{renderValue(row.energy)}</td>
                   <td className="text-center text-[#003342]/60 py-4 px-6">{renderValue(row.preworkout)}</td>
@@ -457,22 +665,61 @@ const CTASection = () => {
   };
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden" data-testid="cta-section">
+    <section className="relative py-24 lg:py-32 overflow-hidden noise-dark" data-testid="cta-section">
       <div className="absolute inset-0">
         <img src={IMAGES.handsWithCans} alt="NYNE Focus Community" className="w-full h-full object-cover"/>
-        <div className="absolute inset-0 bg-[#003342]/80" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#003342]/90 via-[#003342]/80 to-[#003342]/85" />
       </div>
+
+      {/* Floating blobs */}
+      <motion.div
+        aria-hidden
+        className="absolute top-10 right-10 w-80 h-80 rounded-full bg-[#4FACFE]/25 blur-3xl"
+        animate={{ y: [0, 30, 0] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute bottom-10 left-10 w-96 h-96 rounded-full bg-[#FFFE97]/15 blur-3xl"
+        animate={{ y: [0, -25, 0] }}
+        transition={{ duration: 12, repeat: Infinity }}
+      />
+
+      {/* Floating sparkles */}
+      {[0, 1, 2, 3, 4, 5].map(i => (
+        <motion.div
+          key={i}
+          aria-hidden
+          className="absolute w-2 h-2 rounded-full bg-[#FFFE97]"
+          style={{
+            top: `${15 + (i * 13) % 70}%`,
+            left: `${10 + (i * 17) % 80}%`,
+          }}
+          animate={{ opacity: [0, 1, 0], scale: [0, 1.5, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4 }}
+        />
+      ))}
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">YOU KNOW WHAT TO DO</h2>
-          <p className="text-xl text-white/70 mb-10 max-w-xl mx-auto">Join thousands of high-performing professionals who've upgraded their fuel.</p>
+          <motion.span
+            initial={{ opacity: 0, rotate: -4 }}
+            whileInView={{ opacity: 1, rotate: -3 }}
+            viewport={{ once: true }}
+            className="inline-block bg-[#FFFE97] text-[#003342] font-bold text-xs tracking-[0.3em] uppercase px-4 py-2 rounded-full mb-6 sticker"
+          >
+            · 15% Off Your First Order ·
+          </motion.span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            You Know <span className="shimmer-text">What To Do.</span>
+          </h2>
+          <p className="text-xl text-white/75 mb-10 max-w-xl mx-auto">Join thousands of high-performing professionals who've upgraded their fuel.</p>
 
           {!submitted ? (
             <form onSubmit={handleSubmit} className="max-w-md mx-auto">
               <div className="flex flex-col sm:flex-row gap-3">
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required className="flex-1 px-6 py-4 bg-white text-[#003342] placeholder-[#003342]/40 font-medium rounded-full focus:outline-none focus:ring-4 focus:ring-[#4FACFE]/50 shadow-lg" data-testid="email-input"/>
-                <motion.button type="submit" whileHover={{ scale: 1.05 }} className="bg-[#FFFE97] text-[#003342] px-8 py-4 font-bold hover:bg-white transition-colors rounded-full whitespace-nowrap shadow-lg" data-testid="cta-submit-btn">Get 15% Off</motion.button>
+                <motion.button type="submit" whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }} className="bg-[#FFFE97] text-[#003342] px-8 py-4 font-bold hover:bg-white transition-colors rounded-full whitespace-nowrap shadow-lg sticker" data-testid="cta-submit-btn">Get 15% Off</motion.button>
               </div>
               <p className="text-sm text-white/50 mt-4">Sign up to receive 15% off your first order.</p>
             </form>
@@ -485,7 +732,7 @@ const CTASection = () => {
           )}
 
           <div className="mt-12">
-            <motion.a href={SHOPIFY_URL} whileHover={{ scale: 1.05 }} className="inline-flex items-center gap-2 bg-[#FFFE97] text-[#003342] px-12 py-5 font-bold text-lg hover:bg-white transition-colors rounded-full shadow-xl" data-testid="cta-shop-btn">
+            <motion.a href={SHOPIFY_URL} whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }} className="inline-flex items-center gap-2 bg-[#FFFE97] text-[#003342] px-12 py-5 font-bold text-lg hover:bg-white transition-colors rounded-full shadow-xl sticker" data-testid="cta-shop-btn">
               Try NYNE FOCUS - 15% Off <ArrowRight size={20} />
             </motion.a>
           </div>
@@ -540,6 +787,7 @@ const LandingPage = () => {
       <HeroSection />
       <ProblemSection />
       <ProductSection />
+      <MarqueeSection />
       <IngredientsSection />
       <ComparisonSection />
       <FAQSection />
